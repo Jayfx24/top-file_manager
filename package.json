@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node --watch src/app"
   },
   "keywords": [],
   "author": "",
@@ -13,9 +14,13 @@
   "dependencies": {
     "@prisma/adapter-pg": "^7.8.0",
     "@prisma/client": "^7.8.0",
+    "@quixo3/prisma-session-store": "^3.1.19",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
-    "express-validation": "^4.1.1",
+    "express-session": "^1.19.0",
+    "express-validator": "^7.3.2",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0",
     "pg": "^8.21.0",
     "prisma": "^7.8.0"
   }

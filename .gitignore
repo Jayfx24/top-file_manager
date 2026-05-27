@@ -2,5 +2,5 @@
 *.env
 node_modules
 /generated/prisma
-/generated
+src/generated
 todo.md
