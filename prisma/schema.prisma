@@ -16,6 +16,7 @@ model User {
   username String   @unique
   pwd String
   folders Folder[]
+  shared Shared[]
   createdAt DateTime @default(now())
 
   @@map("users")
@@ -30,6 +31,8 @@ model Folder {
   author User   @relation(fields: [authorId], references: [id])
   authorId Int
   files File[]
+  lastSeen DateTime
+
 
 
 
@@ -49,9 +52,28 @@ model File {
   updatedAt DateTime 
   folder Folder   @relation(fields: [folderId], references: [id])
   folderId Int
+  lastSeen DateTime
 
 
   @@unique([name,folderId])
   @@map("files")
 
+}
+
+
+model Shared {
+  id Int    @id @default(autoincrement())
+  authorId Int
+  name String  
+  size Int
+  generatedUrl String  
+  createdAt DateTime @default(now())
+  isActive Boolean
+  endDate DateTime
+  type String
+  lastSeen DateTime
+  viewsCount Int  @default(0)
+  author User   @relation(fields: [authorId], references: [id])
+
+  @@map("shared")
 }
