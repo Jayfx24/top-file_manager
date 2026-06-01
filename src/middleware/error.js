@@ -1,8 +1,10 @@
 import { validationResult } from "express-validator";
+import { authSchema, registerSchema } from "../config/validation";
 
-function verifyData(req,res){
-    const errors = validationResult(req)
-    if (!errors.isEmpty()){
+
+function verifyAuth(req,res){
+    const {error, value} = authSchema.validate(req)
+    if (error){
         return res.render()
     }
 }

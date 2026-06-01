@@ -1,27 +1,27 @@
-
 import { prisma } from "../lib/prisma";
 import { matchedData } from "express-validator";
-function login(req,res) {
-    
-}
+import { authSchema, registerSchema } from "../config/validation";
 
-function registerGet(req,res) {
-    
-}
+function login(req, res) {}
 
-async function registerPost(req,res,next) {
-// if err
+function registerGet(req, res) {}
 
-const data = matchedData(req)
+async function registerPost(req, res, next) {
+  const { error, value } = registerSchema.validate(req.body);
+  if (error) {
+    return res
+      .status(401)
+      .render("form/register", { title: "Register", errors: error.details });
+  }
 
-// const user = await prisma.user.create({
-//     data:{
-//         firstName: data.fName,
-//         lastName: data.lName,
-//         username: data.username,
-//         pwd: data.pwd
-//     }
-// })
+  // const user = await prisma.user.create({
+  //     data:{
+  //         firstName: data.fName,
+  //         lastName: data.lName,
+  //         username: data.username,
+  //         pwd: data.pwd
+  //     }
+  // })
 }
 
 // const user = await prisma.user.create({
