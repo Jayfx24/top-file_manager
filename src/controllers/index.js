@@ -1,32 +1,38 @@
-import { prisma } from "../lib/prisma";
+import { prisma } from "../lib/prisma.js";
 import { matchedData } from "express-validator";
-import { authSchema, registerSchema } from "../config/validation";
 
-function login(req, res) {}
-
-function registerGet(req, res) {}
-
-async function registerPost(req, res, next) {
-  const { error, value } = registerSchema.validate(req.body);
-  if (error) {
-    return res
-      .status(401)
-      .render("form/register", { title: "Register", errors: error.details });
-  }
-
-  // const user = await prisma.user.create({
-  //     data:{
-  //         firstName: data.fName,
-  //         lastName: data.lName,
-  //         username: data.username,
-  //         pwd: data.pwd
-  //     }
-  // })
+export function login(req, res) {
+  return res.render("forms/login");
 }
 
-// const user = await prisma.user.create({
-//   data: {
-//     email: "elsa@prisma.io",
-//     name: "Elsa Prisma",
-//   },
-// });
+export function registerGet(req, res) {
+  return res.render("forms/register");
+}
+
+export async function registerPost(req, res, next) {
+  if (req.validateErrors) {
+    return res.render("forms/register", {
+      title: "register",
+      errors: req.validateErrors,
+    });
+  }
+
+  const user = await prisma.user.create({
+    data: {
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      username: req.body.username,
+      pwd: req.body.pwd,
+    },
+  });
+  return res.redirect("/");
+}
+
+export function logout(req, res) {
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/");
+  });
+}

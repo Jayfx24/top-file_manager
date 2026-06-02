@@ -1,9 +1,9 @@
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
-import { prisma } from "../lib/prisma";
-import { isValidPwd, genPwd } from "../lib/passwordUtils";
+import { prisma } from "../lib/prisma.js";
+import { isValidPwd, genPwd } from "../lib/passwordUtils.js";
 
-export default (passport) => {
+export const passportConfig = (passport) => {
   const customFields = {
     usernameField: "username",
     passwordField: "pwd",

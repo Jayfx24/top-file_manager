@@ -7,25 +7,15 @@ import { prisma } from "./lib/prisma.js";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 import router from "./routes/index.js";
-import { passport as passportConfig } from "./config/passport.js";
+import { passportConfig } from "./config/passport.js";
 import passport from "passport";
-
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const PORT = process.env.PORT || 3000;
+
 const app = express();
-
-passportConfig(passport)
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-// app.use(methodOverride('_method'))
-app.use(express.static("public"));
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "ejs");
-app.use(passport.session());
-
 const session = expressSession({
   cookie: {
     maxAge: 3 * 24 * 60 * 60 * 1000,
@@ -38,6 +28,23 @@ const session = expressSession({
     dbRecordIdIsSessionId: true,
     dbRecordIdFunction: undefined,
   }),
+});
+
+passportConfig(passport);
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+// app.use(methodOverride('_method'))
+app.use(express.static("public"));
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "ejs");
+app.use(session)
+app.use(passport.session());
+
+app.use((req, res, next) => {
+  res.locals.authenticated = req.isAuthenticated();
+  res.locals.currentUser = req.user;
+  console.log(req.isAuthenticated, req.user)
+  next();
 });
 
 app.use("/", router);
