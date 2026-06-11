@@ -1,31 +1,32 @@
 import { Router } from "express";
-import { registerGet, registerPost, login, logout } from "../controllers/index.js";
+import {
+  registerGet,
+  registerPost,
+  login,
+  logout,
+  dashboard,
+} from "../controllers/index.js";
+import { isAuth } from "../middleware/auth.middleware.js";
+import { router as userRouter } from "./user.router.js";
 import { validateRequest } from "../middleware/validateRequest.js";
-import { registerSchema, authSchema } from "../validation/schema.js";
+import { registerSchema } from "../validation/schema.js";
 import passport from "passport";
 // import folderRouter from "./folder.js";
 // import fileRouter from "./file.js";
 
 const router = Router();
 
-router.get("/", (req, res) => {
-  res.send("We are live");
-});
-
-router.get("/login", login);
-router.get("/logout", logout);
-
 router.post(
   "/login",
   passport.authenticate("local", {
     failureRedirect: "/login",
     failureMessage: true,
+    successRedirect: "/dashboard",
   }),
-  function (req, res) {
-    res.redirect("/");
-  },
 );
-// router.get("/login", loginGet);
+router.get("/login", login);
+router.get("/logout", logout);
+router.get("/dashboard", isAuth, dashboard);
 router.get("/register", registerGet);
 router.post("/register", validateRequest(registerSchema), registerPost);
 

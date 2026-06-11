@@ -1,0 +1,49 @@
+@import url('./reset.css');
+
+:root {
+    --max-width: 1250px
+}
+
+
+body {
+    min-height: 100dvh;
+}
+
+ul{
+    list-style: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+main{
+    width: 100%;
+}
+/*  */
+.container {
+    max-width: var(--max-width);
+    padding: .5rem 2rem;
+}
+
+.content {
+    min-height: 100vh;
+}
+
+
+.sideMenu {
+    min-width: 400px;
+}
+
+/*  */
+.border {
+    border: 1px solid;
+}
+
+.flex {
+    display: flex;
+}
+
+.gap {
+    gap: 1rem;
+}
+
+/*  */

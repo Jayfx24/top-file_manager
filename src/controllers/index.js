@@ -38,3 +38,7 @@ export function logout(req, res) {
     res.redirect("/login");
   });
 }
+
+export function dashboard(req, res) {
+  return res.render("dashboard", { title: "Dashboard" });
+}
