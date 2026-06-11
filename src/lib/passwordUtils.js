@@ -6,7 +6,7 @@ const genPwd = async (pwd) => {
 };
 
 const isValidPwd = async (pwd, userPwd) => {
-  return bcrypt.compare(pwd === userPwd);
+  return bcrypt.compare(pwd , userPwd);
 };
 
 export { genPwd, isValidPwd };

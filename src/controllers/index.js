@@ -1,7 +1,11 @@
 import { prisma } from "../lib/prisma.js";
 import { matchedData } from "express-validator";
+import { genPwd } from "../lib/passwordUtils.js";
 
 export function login(req, res) {
+  res.locals.errors = req.session.messages;
+  console.log("at login");
+  console.log(req.session.messages);
   return res.render("forms/login");
 }
 
@@ -22,7 +26,7 @@ export async function registerPost(req, res, next) {
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       username: req.body.username,
-      pwd: req.body.pwd,
+      pwd: genPwd(req.body.pwd),
     },
   });
   return res.redirect("/");
@@ -33,6 +37,6 @@ export function logout(req, res) {
     if (err) {
       return next(err);
     }
-    res.redirect("/");
+    res.redirect("/login");
   });
 }

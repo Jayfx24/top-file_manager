@@ -7,20 +7,26 @@ export const passportConfig = (passport) => {
   const customFields = {
     usernameField: "username",
     passwordField: "pwd",
+    passReqToCallback: true,
   };
 
-  const cb = async (username, pwd, done) => {
+  const cb = async (req, username, pwd, done) => {
     try {
       const user = await prisma.user.findUnique({
         where: {
           username: username,
         },
       });
-      if (!user) done(null, false);
-      const isValid = isValidPwd(pwd, user.pwd);
-      !isValid ? done(null, false) : done(null, user);
+      if (!user) {
+        req.session.messages = []
+        return done(null, false, { message: "User not found" });
+      }
+      const isValid = await isValidPwd(pwd, user.pwd);
+      !isValid
+        ? done(null, false, { message: "Incorrect Password" })
+        : done(null, user);
     } catch (error) {
-      done(error);
+      done(error, null);
     }
   };
 

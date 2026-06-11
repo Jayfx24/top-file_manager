@@ -15,11 +15,6 @@ export const validateRequest = (schema, property = "body") => {
     }));
 
     next();
-    // r=
-    // return res.status(401).json({
-    //   status: "error",
-    //   message: "Validation error",
-    //   errors: errorDetails,
-    // });
+    
   };
 };

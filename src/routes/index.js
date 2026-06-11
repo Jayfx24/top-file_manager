@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { registerGet, registerPost, login } from "../controllers/index.js";
+import { registerGet, registerPost, login, logout } from "../controllers/index.js";
 import { validateRequest } from "../middleware/validateRequest.js";
 import { registerSchema, authSchema } from "../validation/schema.js";
 import passport from "passport";
@@ -13,11 +13,14 @@ router.get("/", (req, res) => {
 });
 
 router.get("/login", login);
+router.get("/logout", logout);
 
 router.post(
   "/login",
-  validateRequest(authSchema),
-  passport.authenticate("local", { failureRedirect: "/login" }),
+  passport.authenticate("local", {
+    failureRedirect: "/login",
+    failureMessage: true,
+  }),
   function (req, res) {
     res.redirect("/");
   },
