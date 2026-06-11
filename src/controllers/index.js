@@ -4,8 +4,6 @@ import { genPwd } from "../lib/passwordUtils.js";
 
 export function login(req, res) {
   res.locals.errors = req.session.messages;
-  console.log("at login");
-  console.log(req.session.messages);
   return res.render("forms/login");
 }
 
