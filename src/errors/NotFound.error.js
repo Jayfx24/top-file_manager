@@ -6,4 +6,4 @@ class NotFoundError extends AppError {
   }
 }
 
-export default NotFoundError
+export default NotFoundError;
