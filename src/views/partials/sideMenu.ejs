@@ -1,12 +1,25 @@
 <aside class="sideMenu border">
     <div class="aside-content ">
         <div class="actions">
-            <button command="show-modal" commandfor="folder-dialog">New Folder</button>
+            <div class=""><button command="show-modal" commandfor="folder-dialog">New Folder</button></div>
             <button command="show-modal" commandfor="file-dialog">New file</button>
+            <div class="action__errors">
+                <%- include("../partials/errors.ejs") %>
+
+            </div>
         </div>
         <h2>
             Projects
         </h2>
+        <ul class="folder__list">
+            <% locals?.folders.forEach((value)=> { %>
+                <li class="folder__item">
+                    <%= value.name %>
+                </li>
+                <% })%>
+        </ul>
+
+
 
 
         <h2>
@@ -15,6 +28,7 @@
     </div>
 
 </aside>
-<!-- <button command="show-modal" commandfor="my-dialog">Open dialog</button> -->
+
 
 <%- include("../dialogs/folder.ejs") %>
+    <%- include("../dialogs/file.ejs") %>

@@ -1,0 +1,20 @@
+<dialog id="file-dialog">
+    <p>This dialog was opened using an invoker command.</p>
+
+    <form action="" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="uploaded_file">Enter file name:</label>
+            <input type="file" name="uploaded_file" id="uploaded_file"
+                accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf">
+            <p class="notice">
+                Accept file types are: <span class="">.xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf</span>
+            </p>
+
+        </div>
+        <button type="submit">Upload</button>
+          <button commandfor="file-dialog" command="close">Close</button>
+
+    </form>
+
+
+</dialog>

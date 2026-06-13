@@ -1,12 +1,14 @@
 <dialog id="folder-dialog">
   <p>This dialog was opened using an invoker command.</p>
-  
-  <form action="" method="post">
+
+  <form action="/folder/new" method="post">
     <div class="form-group">
-      <label for="folderName">Enter folder name</label>
-      <input type="text" name="folderName" id="folderName">
+      <label for="folder">Enter folder name:</label>
+      <input type="text" name="folder" id="folder">
     </div>
     <button type="submit">Create</button>
+    <button commandfor="folder-dialog" command="close">Close</button>
+
   </form>
 
 </dialog>

@@ -26,13 +26,13 @@ model User {
 model Folder {
   id Int    @id @default(autoincrement())
   name String  
-  parentId Int?  
+  parentId Int @default(0) 
+  authorId Int
   createdAt DateTime @default(now())
   updatedAt DateTime? 
   author User   @relation(fields: [authorId], references: [id])
-  authorId Int
   files File[]
-  lastSeen DateTime
+  lastSeen DateTime?
 
 
 
@@ -53,7 +53,7 @@ model File {
   updatedAt DateTime 
   folder Folder   @relation(fields: [folderId], references: [id])
   folderId Int
-  lastSeen DateTime
+  lastSeen DateTime?
 
 
   @@unique([name,folderId])
@@ -72,7 +72,7 @@ model Shared {
   isActive Boolean
   endDate DateTime
   type String
-  lastSeen DateTime
+  lastSeen DateTime?
   viewsCount Int  @default(0)
   author User   @relation(fields: [authorId], references: [id])
 

@@ -37,17 +37,26 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
-app.use(session)
+app.use(session);
 app.use(passport.session());
 
 app.use((req, res, next) => {
   res.locals.authenticated = req.isAuthenticated();
   res.locals.currentUser = req.user;
-  console.log(req.isAuthenticated(), req.user)
+  console.log(req.isAuthenticated(), req.user);
   next();
 });
 
 app.use("/", router);
+app.use((err, req, res, next) => {
+  console.error(err);
+  res.status(err.statusCode || 500).json({
+    error: {
+      code: err.code || "error",
+      message: err.message,
+    },
+  });
+});
 
 app.listen(PORT, (err) => {
   if (err) console.log(err);

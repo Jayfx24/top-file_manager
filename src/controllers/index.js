@@ -39,6 +39,18 @@ export function logout(req, res) {
   });
 }
 
-export function dashboard(req, res) {
-  return res.render("dashboard", { title: "Dashboard" });
+export async function dashboard(req, res) {
+  const errors = req.session.validateErrors;
+  delete req.session.validateErrors;
+  const folders = await prisma.folder.findMany({
+    where: {
+      authorId: req.user.id,
+    },
+  });
+  
+  return res.render("dashboard", {
+    title: "Dashboard",
+    folders,
+    errors,
+  });
 }
