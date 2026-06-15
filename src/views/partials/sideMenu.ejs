@@ -12,9 +12,11 @@
             Projects
         </h2>
         <ul class="folder__list">
-            <% locals?.folders.forEach((value)=> { %>
+            <% locals?.userFolders.forEach((folder)=> { %>
                 <li class="folder__item">
-                    <%= value.name %>
+                    <a href="/folders/<%=folder?.id%>">
+                        <%= folder.name %>
+                    </a>
                 </li>
                 <% })%>
         </ul>

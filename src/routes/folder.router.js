@@ -1,18 +1,17 @@
 import { Router } from "express";
 import { validateRequestAsync } from "../middleware/validateRequest.js";
 import { createFolderSchema } from "../validation/createFolder.schema.js";
-import { createFolder } from "../controllers/folder.controller.js";
+import { createFolder, contentGet } from "../controllers/folder.controller.js";
 
 const folderRouter = Router();
 
-// folderRouter.get("/", folders);
+folderRouter.get("/:id", contentGet);
 folderRouter.post(
-  "/new",
+  "/:parentId/new",
   validateRequestAsync(createFolderSchema),
-  createFolder,
+  createFolder
 );
 // folderRouter.post("/share/:id", shareFolder);
-// folderRouter.get("/:folder", folder);
 // folderRouter.get("/:folder/:file", viewFile);
 
 // router.get("/new", createFolderGet) ?? dialog

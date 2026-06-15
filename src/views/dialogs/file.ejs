@@ -1,7 +1,7 @@
 <dialog id="file-dialog">
     <p>This dialog was opened using an invoker command.</p>
 
-    <form action="/files/upload" method="post" enctype="multipart/form-data">
+    <form action="/files/<%=locals.parentId || '0'%>/upload" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label for="uploaded_file">Enter file name:</label>
             <input type="file" name="uploaded_file" id="uploaded_file"
@@ -12,7 +12,7 @@
 
         </div>
         <button type="submit">Upload</button>
-          <button commandfor="file-dialog" command="close">Close</button>
+        <button commandfor="file-dialog" command="close">Close</button>
 
     </form>
 

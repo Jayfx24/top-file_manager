@@ -4,7 +4,11 @@ import upload from "../middleware/upload.middleware.js";
 
 const fileRouter = Router();
 
-fileRouter.post("/upload", upload.single("uploaded_file"), uploadFile);
+fileRouter.post(
+  "/:parentId/upload",
+  upload.single("uploaded_file"),
+  uploadFile
+);
 // fileRouter.post("/share/:id", shareFile);
 // fileRouter.get("/:file", viewFile);
 
