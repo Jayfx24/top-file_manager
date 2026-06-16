@@ -11,7 +11,7 @@
         <h2>
             Projects
         </h2>
-        <ul class="folder__list">
+        <!-- <ul class="folder__list">
             <% locals?.userFolders.forEach((folder)=> { %>
                 <li class="folder__item">
                     <a href="/folders/<%=folder?.id%>">
@@ -19,14 +19,72 @@
                     </a>
                 </li>
                 <% })%>
-        </ul>
+        </ul> -->
+        <!-- <ul class="folder__list">
+            <% locals?.anchorFolders.forEach((anchor)=> { %>
+                <li class="folder__item">
+                    <a href="/folders/<%=anchor?.id%>">
+                        <%= anchor.name %>
+                    </a>
+
+
+                    <ul class="sub__list">
+                        <% locals?.folders.forEach((item)=> { %>
+                            <% if (item.parentId==anchor.id) {%>
+                                <li class="folder__item">
+                                    <a href="/folders/<%=item?.id%>">
+                                        <%= item.name %>
+                                    </a>
+                                </li>
+                                <%}%>
+                                    <%})%>
+
+                            
+                    </ul>
+                </li>
+                <% })%>
+        </ul> -->
+
+        <% function walk(folder, data) { if (!data) return '' ; const children=data[String(folder.id)] ?? []; if
+            (children.length <=0) return "" ; let html=`<ul class="sub__list">`;
+
+            children.forEach((ele) => {
+            html += `
+            <li class="folder__item">
+                <a href="/folders/${ele?.id}">
+                    ${ele.name}
+                </a>
+                ${walk(ele, data)}
+            </li>`;
+            });
+            html += `</ul>`;
+            return html;
+            }
+
+
+            %>
+            <ul class="folder__list">
+                <% locals?.anchorFolders.forEach((anchor)=> { %>
+                    <li class="folder__item">
+                        <a href="/folders/<%=anchor?.id%>">
+                            <%= anchor.name %>
+                        </a>
+
+                        <%- walk(anchor,gp) %>
+
+                    </li>
+                    <% })%>
+            </ul>
 
 
 
 
-        <h2>
-            Shared
-        </h2>
+
+
+
+            <h2>
+                Shared
+            </h2>
     </div>
 
 </aside>

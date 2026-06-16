@@ -47,3 +47,8 @@ main{
 }
 
 /*  */
+/* anchors */
+/* sub list */
+.sub__list{
+    padding-inline: 1rem;
+}

@@ -13,32 +13,37 @@
                             <div class="main-content">
                                 <p>This should show the the content of the projects | all</p>
 
-                                <% if (locals.noContent){%>
+                                <!-- <% if (locals.noContent){%>
                                     <h2>
                                         <%=noContent%>
                                     </h2>
-                                    <%}%>
+                                    <%}%> -->
 
                                         <% if (locals.folders){%>
                                             <ul class="folder__list">
                                                 <% locals?.folders.forEach((folder)=> { %>
-                                                    <li class="folder__item">
-                                                        <a href="/folders/<%=folder?.id%>">
-                                                            <%= folder.name %>
-                                                        </a>
-                                                    </li>
-                                                    <% })%>
-                                                        <% if (locals.files){%>
+                                                    <% if (folder.parentId===parentId){%>
 
-                                                            <% locals?.files.forEach((file)=> { %>
-                                                                <li class="folder__item">
-                                                                    <a href="/files/<%=file?.id%>">
-                                                                        <%= file.name %>
-                                                                    </a>
-                                                                </li>
-                                                                <% })%>
+                                                        <li class="folder__item">
+                                                            <a href="/folders/<%=folder?.id%>">
+                                                                <%= folder.name %>
+                                                            </a>
+                                                        </li>
+                                                        <% }%>
 
-                                                                    <%}%>
+
+                                                            <% })%>
+                                                                <% if (locals.files){%>
+
+                                                                    <% locals?.files.forEach((file)=> { %>
+                                                                        <li class="folder__item">
+                                                                            <a href="/files/<%=file?.id%>">
+                                                                                <%= file.name %>
+                                                                            </a>
+                                                                        </li>
+                                                                        <% })%>
+
+                                                                            <%}%>
                                             </ul>
                                             <%}%>
 
