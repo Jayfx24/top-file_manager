@@ -20,13 +20,11 @@ export async function createFolder(req, res) {
     : res.redirect(`/folders/${parentId}`);
 }
 
-
-
 export async function contentGet(req, res) {
   // loop through all files and folder that that folder id and pass to view
   const id = Number(req.params.id);
   console.log("selected folder id :- ", id);
-  
+
   const anchorFolders = await prisma.folder.findMany({
     where: {
       parentId: 0,
@@ -38,7 +36,13 @@ export async function contentGet(req, res) {
       authorId: req.user.id,
     },
   });
-  
+
+  const userFiles = await prisma.file.findMany({
+    where: {
+      authorId: req.user.id,
+    },
+  });
+
   const folders = await prisma.folder.findMany({
     where: {
       NOT: {
@@ -48,6 +52,7 @@ export async function contentGet(req, res) {
   });
 
   const gp = Object.groupBy(folders, ({ parentId }) => parentId);
+  const fileGroup = Object.groupBy(userFiles, ({ folderId }) => folderId);
 
   const files = await prisma.file.findMany({
     where: {
@@ -60,7 +65,7 @@ export async function contentGet(req, res) {
   });
 
   // console.log("sub folders :- ", folders);
-  console.group("group by", group);
+  // console.group("group by", group);
 
   return folders.length > 0 || files.length > 0
     ? res.render("dashboard", {
@@ -71,6 +76,7 @@ export async function contentGet(req, res) {
         files,
         parentId: id,
         gp,
+        fileGroup,
       })
     : res.render("dashboard", {
         title: "Content",
@@ -79,6 +85,7 @@ export async function contentGet(req, res) {
         noContent: "No content in folder yet... add new",
         parentId: id,
         gp,
+        fileGroup,
       });
 
   // else pass nothing in folder

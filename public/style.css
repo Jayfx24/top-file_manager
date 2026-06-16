@@ -46,9 +46,14 @@ main{
     gap: 1rem;
 }
 
+.hide {
+    display: none;
+}
+
 /*  */
 /* anchors */
 /* sub list */
 .sub__list{
     padding-inline: 1rem;
+    border-inline-start: 1px solid;
 }
