@@ -1,4 +1,5 @@
 import { prisma } from "../lib/prisma.js";
+import { getSideMenuData } from "../service/sideMenu.service.js";
 
 export async function createFolder(req, res) {
   if (req.session.validateErrors) {
@@ -21,72 +22,12 @@ export async function createFolder(req, res) {
 }
 
 export async function contentGet(req, res) {
-  // loop through all files and folder that that folder id and pass to view
   const id = Number(req.params.id);
-  console.log("selected folder id :- ", id);
+  const sideMenu = await getSideMenuData(req.user.id);
 
-  const anchorFolders = await prisma.folder.findMany({
-    where: {
-      parentId: 0,
-      authorId: req.user.id,
-    },
+  return res.render("dashboard", {
+    title: "Content",
+    parentId: id,
+    ...sideMenu,
   });
-  const userFolders = await prisma.folder.findMany({
-    where: {
-      authorId: req.user.id,
-    },
-  });
-
-  const userFiles = await prisma.file.findMany({
-    where: {
-      authorId: req.user.id,
-    },
-  });
-
-  const folders = await prisma.folder.findMany({
-    where: {
-      NOT: {
-        parentId: 0,
-      },
-    },
-  });
-
-  const gp = Object.groupBy(folders, ({ parentId }) => parentId);
-  const fileGroup = Object.groupBy(userFiles, ({ folderId }) => folderId);
-
-  const files = await prisma.file.findMany({
-    where: {
-      folderId: id,
-    },
-  });
-
-  const group = await prisma.folder.groupBy({
-    by: ["parentId"],
-  });
-
-  // console.log("sub folders :- ", folders);
-  // console.group("group by", group);
-
-  return folders.length > 0 || files.length > 0
-    ? res.render("dashboard", {
-        title: "Content",
-        userFolders,
-        anchorFolders,
-        folders,
-        files,
-        parentId: id,
-        gp,
-        fileGroup,
-      })
-    : res.render("dashboard", {
-        title: "Content",
-        userFolders,
-        anchorFolders,
-        noContent: "No content in folder yet... add new",
-        parentId: id,
-        gp,
-        fileGroup,
-      });
-
-  // else pass nothing in folder
 }

@@ -21,7 +21,7 @@
 
                                         <% if (locals.folders){%>
                                             <ul class="folder__list">
-                                                <% locals?.folders.forEach((folder)=> { %>
+                                                <% locals.folders.forEach((folder)=> { %>
                                                     <% if (folder.parentId===parentId){%>
 
                                                         <li class="folder__item">
@@ -33,9 +33,9 @@
 
 
                                                             <% })%>
-                                                                <% if (locals.files){%>
+                                                                <% if (locals.userFiles){%>
 
-                                                                    <% locals?.files.forEach((file)=> { %>
+                                                                    <% locals?.userFiles.forEach((file)=> { %>
                                                                         <li class="folder__item">
                                                                             <a href="/files/<%=file?.id%>">
                                                                                 <%= file.name %>

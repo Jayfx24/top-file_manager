@@ -1,6 +1,7 @@
 import { prisma } from "../lib/prisma.js";
 import { matchedData } from "express-validator";
 import { genPwd } from "../lib/passwordUtils.js";
+import { getSideMenuData } from "../service/sideMenu.service.js";
 
 export function login(req, res) {
   res.locals.errors = req.session.messages;
@@ -42,15 +43,13 @@ export function logout(req, res) {
 export async function dashboard(req, res) {
   const errors = req.session.validateErrors;
   delete req.session.validateErrors;
-  const userFolders = await prisma.folder.findMany({
-    where: {
-      authorId: req.user.id,
-    },
-  });
-  
+
+  const sideMenu = await getSideMenuData(req.user.id);
+
   return res.render("dashboard", {
     title: "Dashboard",
-    userFolders,
     errors,
+    ...sideMenu,
+    parentId: 0,
   });
 }
