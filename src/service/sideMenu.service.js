@@ -23,6 +23,7 @@ export async function getSideMenuData(userId) {
 
   return {
     anchorFolders,
+    userFiles,
     folderGroup,
     fileGroup,
     folders,

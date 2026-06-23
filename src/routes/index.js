@@ -9,7 +9,7 @@ import {
 import { isAuth } from "../middleware/auth.middleware.js";
 import { router as userRouter } from "./user.router.js";
 import { validateRequest } from "../middleware/validateRequest.js";
-import { registerSchema } from "../validation/schema.js";
+import { registerSchema } from "../validator/schema.js";
 import folderRouter from "./folder.router.js";
 import fileRouter from "./file.router.js";
 import passport from "passport";

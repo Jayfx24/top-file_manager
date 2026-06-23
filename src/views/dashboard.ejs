@@ -2,59 +2,114 @@
 <html lang="en">
 <%- include("./partials/head.ejs") %>
 
-    <body>
-        <%- include("./partials/header.ejs") %>
+<body>
+  <%- include("./partials/header.ejs") %>
 
-            <main>
-                <section class="container">
-                    <div class="content flex gap">
-                        <%- include("./partials/sideMenu.ejs") %>
+  <main>
+    <section class="container">
+      <div class="content flex gap">
+        <%- include("./partials/sideMenu.ejs") %>
 
-                            <div class="main-content">
-                                <p>This should show the the content of the projects | all</p>
-
-                                <!-- <% if (locals.noContent){%>
-                                    <h2>
-                                        <%=noContent%>
-                                    </h2>
-                                    <%}%> -->
-
-                                        <% if (locals.folders){%>
-                                            <ul class="folder__list">
-                                                <% locals.folders.forEach((folder)=> { %>
-                                                    <% if (folder.parentId===parentId){%>
-
-                                                        <li class="folder__item">
-                                                            <a href="/folders/<%=folder?.id%>">
-                                                                <%= folder.name %>
-                                                            </a>
-                                                        </li>
-                                                        <% }%>
+        <div class="main-content">
+          <p>This should show the the content of the projects | all</p>
 
 
-                                                            <% })%>
-                                                                <% if (locals.userFiles){%>
 
-                                                                    <% locals?.userFiles.forEach((file)=> { %>
-                                                                        <li class="folder__item">
-                                                                            <a href="/files/<%=file?.id%>">
-                                                                                <%= file.name %>
-                                                                            </a>
-                                                                        </li>
-                                                                        <% })%>
+          <% if (locals.folders){%>
+          <table class="table border">
+            <thead class="table_header">
+              <tr class="th__row">
+                <th class="th__item">File Name</th>
+                <th class="th__item">size</th>
+                <th class="th__item">created</th>
+                <th class="th__item">last opened</th>
+                <th class="th__item">actions</th>
+              </tr>
+            </thead>
 
-                                                                            <%}%>
-                                            </ul>
-                                            <%}%>
 
-                            </div>
-                    </div>
+            <% locals.folders.forEach((folder)=> { %>
+            <% if (folder.parentId===parentId){%>
+            <tbody>
+              <tr class="tr__row">
+                <td class="tr__item">
+                  <a href="/folders/<%=folder?.id%>">
+                    <%= folder.name %>
+                  </a>
+                </td>
 
-                </section>
+                <td class="tr__item">
+                  <%= folder?.size || '' %>
+                </td>
 
-            </main>
+                <td class="tr__item">
+                  <%= folder.createdAt.toLocaleDateString() %>
+                </td>
 
-            <%- include("./partials/footer.ejs") %>
-    </body>
+                <td class="tr__item">
+                  <%= folder.lastSeen %>
+                </td>
+
+                <td class="tr__item">
+                  <div class="action__btns">
+                    <button class="delete">delete</button>
+                    <button class="dialog--update" command="show-modal" commandfor="dialog--update" data-id="<%=folder.id%>" data-type="folder" data-name="<%=folder.name%>" data-parent="<%= folder.parentId %>">Update</button>
+                  </div>
+                </td>
+              </tr>
+
+
+              <% }%>
+
+              <% })%>
+              <% if (locals.userFiles){%>
+              <% locals?.userFiles.forEach((file)=> { %>
+              <% if (file.folderId===parentId){%>
+              <tr class="tr__row">
+                <td class="tr__item">
+                  <a href="/files/<%=file?.id%>">
+                    <%= file.name %>
+                  </a>
+                </td>
+
+                <td class="tr__item">
+                  <%= file?.size || '0' %>
+                </td>
+
+                <td class="tr__item">
+                  <%= file.createdAt.toLocaleDateString()
+                                                                                    %>
+                </td>
+
+                <td class="tr__item">
+                  <%= file.lastSeen %>
+                </td>
+                <td class="tr__item">
+                  <div class="action__btns">
+                    <button class="delete">delete</button>
+                    <button class="dialog--update" command="show-modal" commandfor="dialog--update" data-id="<%=file.id%>" data-type="file" data-name="<%=file.name%>" data-parent="<%= file.folderId %>">Update</button>
+                  </div>
+                </td>
+              </tr>
+
+              <% }%>
+
+              <% })%>
+
+              <%}%>
+
+                                                </tbody>
+                                    </table>
+                                    <%}%>
+
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <%- include("./partials/footer.ejs") %>
+</body>
 
 </html>

@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { validateRequestAsync } from "../middleware/validateRequest.js";
-import { createFolderSchema } from "../validation/createFolder.schema.js";
+import { createFolderSchema } from "../validator/createFolder.schema.js";
 import { createFolder, contentGet } from "../controllers/folder.controller.js";
 
 const folderRouter = Router();

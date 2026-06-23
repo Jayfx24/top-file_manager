@@ -22,6 +22,7 @@ main{
 .container {
     max-width: var(--max-width);
     padding: .5rem 2rem;
+    margin-inline: auto;
 }
 
 .content {
@@ -56,4 +57,27 @@ main{
 .sub__list{
     padding-inline: 1rem;
     border-inline-start: 1px solid;
+}
+
+.main-content{
+    width: 100%;
+}
+
+/* table */
+
+
+.table{
+    width: 100%;
+}
+.th__row{
+    text-align: left;
+}
+
+table,th,td{
+    border: 1px solid;
+    
+}
+
+th,td{
+    padding: .5rem;
 }

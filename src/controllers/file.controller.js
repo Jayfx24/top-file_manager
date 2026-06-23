@@ -21,3 +21,13 @@ export async function uploadFile(req, res) {
   }
   return res.redirect(`/folders/${parentId}`);
 }
+
+export async function updateFile(req, res) {
+  const errors = req.session.validateErrors;
+  if (errors) return res.redirect("/dashboard");
+  const { fileName, fileId, parentId } = req.body;
+
+  console.log("updated info", req.body);
+
+  res.redirect(`/folders/${parentId}`);
+}
