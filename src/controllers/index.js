@@ -2,6 +2,7 @@ import { prisma } from "../lib/prisma.js";
 import { matchedData } from "express-validator";
 import { genPwd } from "../lib/passwordUtils.js";
 import { getSideMenuData } from "../service/sideMenu.service.js";
+import path from "node:path";
 
 export function login(req, res) {
   res.locals.errors = req.session.messages;
@@ -52,4 +53,33 @@ export async function dashboard(req, res) {
     ...sideMenu,
     parentId: 0,
   });
+}
+
+export async function updateFile(req, res) {
+  const errors = req.session.validateErrors;
+  if (errors) return res.redirect("/dashboard");
+  const { fileName, fileId, parentId, fileType, originalName } = req.body;
+
+  if (fileType === "file") {
+    const newFile = fileName + path.extname(originalName);
+    await prisma.file.update({
+      where: {
+        id: fileId,
+      },
+      data: {
+        name: newFile,
+      },
+    });
+  } else {
+    await prisma.folder.update({
+      where: {
+        id: fileId,
+      },
+      data: {
+        name: fileName,
+      },
+    });
+  }
+
+  res.redirect(`/folders/${parentId}`);
 }

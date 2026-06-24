@@ -5,11 +5,13 @@ import {
   login,
   logout,
   dashboard,
+  updateFile,
 } from "../controllers/index.js";
 import { isAuth } from "../middleware/auth.middleware.js";
 import { router as userRouter } from "./user.router.js";
 import { validateRequest } from "../middleware/validateRequest.js";
 import { registerSchema } from "../validator/schema.js";
+import { updateSchema } from "../validator/update.schema.js";
 import folderRouter from "./folder.router.js";
 import fileRouter from "./file.router.js";
 import passport from "passport";
@@ -33,8 +35,8 @@ router.get("/logout", logout);
 router.get("/dashboard", isAuth, dashboard);
 router.get("/register", registerGet);
 router.post("/register", validateRequest(registerSchema), registerPost);
+router.use("/update",validateRequest(updateSchema),updateFile)
 
-// router.use("/folders",folderRouter)
 // router.use("/files",folderRouter)
 
 export default router;

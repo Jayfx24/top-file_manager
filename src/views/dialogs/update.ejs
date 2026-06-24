@@ -1,6 +1,6 @@
 <dialog id="dialog--update">
   <p>Update file name</p>
-  <form action="/files/update" method="post">
+  <form action="/update" method="post">
     <div class="form-group">
       <label for="fileName">
         Enter new file name
@@ -8,6 +8,8 @@
       <input type="text" name="fileName" id="fileName">
       <input type="hidden" name="fileId" id="fileId">
       <input type="hidden" name="parentId" id="parentId">
+      <input type="hidden" name="fileType" id="fileType">
+      <input type="hidden" name="originalName" id="originalName">
     </div>
     <button type="submit">Update</button>
 

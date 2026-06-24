@@ -15,14 +15,16 @@ const collapse = (event) => {
 };
 const populateDialog = (event) => {
   const target = event.target;
-  console.log("here")
+  console.log("here");
   if (!["folder", "file"].includes(target.dataset.type)) return;
-  console.log("pass")
-  document.querySelector("#fileName").value = target.dataset.name.split(/\.\w+$/i)?.[0];
+  console.log("pass");
+
+  document.querySelector("#originalName").value = target.dataset.name;
+  document.querySelector("#fileName").value =
+    target.dataset.name.split(/\.\w+$/i)?.[0];
   document.querySelector("#fileId").value = target.dataset.id;
   document.querySelector("#parentId").value = target.dataset.parent;
-  console.log(target.dataset.name);
-  console.log(target.dataset.id);
+  document.querySelector("#fileType").value = target.dataset.type;
 };
 
 folders.addEventListener("click", collapse);
