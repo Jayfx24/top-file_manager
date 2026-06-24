@@ -3,25 +3,47 @@
 <%- include("./partials/head.ejs") %>
 
 <body>
+  <%- include("./partials/header.ejs") %>
   <main>
     <section class="container">
       <div class="content">
         <div class="content--file">
           <div class="file__texts">
             <h1 class="file__name">
-              Placeholder
+              <%= file.name%>
             </h1>
             <div class="file__info">
-              <span class="info">File size</span>
-              <span class="info">File type</span>'
-              <span class="info">Added date</span>'
-              <span class="info">Last updated if available</span>
-            </div>
-            <div class="viewer-container">
-                <!-- the view -->
-            </div>
+              <ul class="info__list">
+                <li class="info__item">
+                  <span class="info">size</span>
+                  <span class="info__value"> <%= file.size %>Bytes</span>
+                </li>
+                <li class="info__item">
+                  <span class="info">type</span>
+                  <span class="info__value"> <%= file.mimetype %></span>
+                </li>
+                <li class="info__item">
+                  <span class="info">Added date</span>
+                  <span class="info__value"> <%= file.createdAt.toDateString() %></span>
+                </li>
+                <% if (file.updatedAt){%>
+                <li class="info__item">
+                  <span class="info">Last updated if available</span>
+                  <span class="info__value"> <%= file.updatedAt.toDateString()%></span>
+                </li>
+                <%}%>
+                  </ul>
+          </div>
+          <div class="viewer-container">
+            <% if (file.mimetype.split("/")[0] === "image") {%>
+                <div class="image-container"><img class="view__image" src="/uploads/<%=file.originalName%>" alt="<%=file.name%>">
+                </div>
+
+                <%}%>
+            <!-- the view -->
           </div>
         </div>
+      </div>
       </div>
     </section>
   </main>

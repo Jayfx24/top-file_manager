@@ -8,7 +8,7 @@ export async function createFolder(req, res) {
 
   const parentId = Number(req.params?.parentId) || 0;
   const data = req.body;
-  console.log(data);
+ 
   await prisma.folder.create({
     data: {
       name: data.folder.toLowerCase(),
@@ -24,6 +24,7 @@ export async function createFolder(req, res) {
 export async function contentGet(req, res) {
   const id = Number(req.params.id);
   const sideMenu = await getSideMenuData(req.user.id);
+  console.log(req.path)
 
   return res.render("dashboard", {
     title: "Content",

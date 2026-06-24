@@ -1,5 +1,5 @@
+import Unauthorized from "../errors/Unauthorized.error.js";
 import { prisma } from "../lib/prisma.js";
-
 export async function uploadFile(req, res) {
   const parentId = Number(req.params?.parentId) || 0;
   const file = req.file;
@@ -10,9 +10,10 @@ export async function uploadFile(req, res) {
     await prisma.file.create({
       data: {
         name: file.filename,
+        originalName: file.filename,
         folderId: parentId,
         authorId: Number(req.user.id),
-        url: file.destination,
+        url: file.destination + "/" + file.name,
         size: file.size,
         encoding: file.encoding,
         mimetype: file.mimetype,
@@ -22,12 +23,18 @@ export async function uploadFile(req, res) {
   return res.redirect(`/folders/${parentId}`);
 }
 
-export async function updateFile(req, res) {
-  const errors = req.session.validateErrors;
-  if (errors) return res.redirect("/dashboard");
-  const { fileName, fileId, parentId } = req.body;
+export async function getFile(req, res) {
+  const id = Number(req.params.id);
+  const authorId = Number(req.user.id);
+  const file = await prisma.file.findUnique({
+    where: {
+      authorId,
+      id,
+    },
+  });
+  if (!file)
+    return new Unauthorized("You are not authorized to view this resource");
 
-  console.log("updated info", req.body);
-
-  res.redirect(`/folders/${parentId}`);
+  console.log(file);
+  res.render("file", { title: "FIle name", file });
 }
