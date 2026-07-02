@@ -2,10 +2,11 @@ import { Router } from "express";
 import { validateRequestAsync } from "../middleware/validateRequest.js";
 import { createFolderSchema } from "../validator/createFolder.schema.js";
 import { createFolder, contentGet } from "../controllers/folder.controller.js";
+import getBreadcrumbs from "../middleware/breadcrumbs.js";
 
 const folderRouter = Router();
 
-folderRouter.get("/:id", contentGet);
+folderRouter.get("/:id", getBreadcrumbs, contentGet);
 folderRouter.post(
   "/:parentId/new",
   validateRequestAsync(createFolderSchema),

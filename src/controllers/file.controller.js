@@ -1,4 +1,5 @@
 import Unauthorized from "../errors/Unauthorized.error.js";
+import NotfoundError from "../errors/NotFound.error.js";
 import { prisma } from "../lib/prisma.js";
 export async function uploadFile(req, res) {
   const parentId = Number(req.params?.parentId) || 0;
@@ -32,8 +33,8 @@ export async function getFile(req, res) {
       id,
     },
   });
-  if (!file)
-    return new Unauthorized("You are not authorized to view this resource");
+  console.log(req.path, req.baseUrl);
+  if (!file) return new NotfoundError("File not found");
 
   console.log(file);
   res.render("file", { title: "FIle name", file });

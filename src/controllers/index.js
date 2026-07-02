@@ -47,6 +47,8 @@ export async function dashboard(req, res) {
 
   const sideMenu = await getSideMenuData(req.user.id);
 
+  res.locals.breadcrumbs = [{ label: "Home", path: "/" }];
+
   return res.render("dashboard", {
     title: "Dashboard",
     errors,
@@ -54,6 +56,7 @@ export async function dashboard(req, res) {
     parentId: 0,
   });
 }
+
 
 export async function updateFile(req, res) {
   const errors = req.session.validateErrors;
@@ -83,3 +86,5 @@ export async function updateFile(req, res) {
 
   res.redirect(`/folders/${parentId}`);
 }
+
+
