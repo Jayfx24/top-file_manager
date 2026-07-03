@@ -13,6 +13,7 @@
         <div class="main-content">
           <p>This should show the the content of the projects | all</p>
 
+          <%- include("./partials/breadcrumb.ejs") %>
 
 
           <% if (locals.folders){%>
@@ -52,7 +53,8 @@
 
                 <td class="tr__item">
                   <div class="action__btns">
-                    <button class="delete">delete</button>
+                    <button class="dialog--share" command="show-modal" commandfor="dialog--share" data-id="<%=folder.id%>" data-type="folder" data-name="<%=folder.name%>" data-parent="<%= folder.parentId %>">Share</button>
+                    <button class=" delete">delete</button>
                     <button class="dialog--update" command="show-modal" commandfor="dialog--update" data-id="<%=folder.id%>" data-type="folder" data-name="<%=folder.name%>" data-parent="<%= folder.parentId %>">Update</button>
                   </div>
                 </td>
@@ -86,6 +88,7 @@
                 </td>
                 <td class="tr__item">
                   <div class="action__btns">
+                    <button class="dialog--share" command="show-modal" commandfor="dialog--share" data-id="<%=folder.id%>" data-type="file" data-name="<%=folder.name%>" data-parent="<%= folder.parentId %>">Share</button>
                     <button class="delete">delete</button>
                     <button class="dialog--update" command="show-modal" commandfor="dialog--update" data-id="<%=file.id%>" data-type="file" data-name="<%=file.name%>" data-parent="<%= file.folderId %>">Update</button>
                   </div>

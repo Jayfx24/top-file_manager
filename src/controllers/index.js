@@ -5,6 +5,7 @@ import { getSideMenuData } from "../service/sideMenu.service.js";
 import path from "node:path";
 
 export function login(req, res) {
+  if (req.isAuthenticated()) return res.redirect(301, "/dashboard");
   res.locals.errors = req.session.messages;
   return res.render("forms/login");
 }
@@ -57,7 +58,6 @@ export async function dashboard(req, res) {
   });
 }
 
-
 export async function updateFile(req, res) {
   const errors = req.session.validateErrors;
   if (errors) return res.redirect("/dashboard");
@@ -86,5 +86,3 @@ export async function updateFile(req, res) {
 
   res.redirect(`/folders/${parentId}`);
 }
-
-

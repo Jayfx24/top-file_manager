@@ -3,12 +3,14 @@ import { validateRequestAsync } from "../middleware/validateRequest.js";
 import { createFolderSchema } from "../validator/createFolder.schema.js";
 import { createFolder, contentGet } from "../controllers/folder.controller.js";
 import getBreadcrumbs from "../middleware/breadcrumbs.js";
+import { isAuth } from "../middleware/auth.middleware.js";
 
 const folderRouter = Router();
 
-folderRouter.get("/:id", getBreadcrumbs, contentGet);
+folderRouter.get("/:id", isAuth, getBreadcrumbs, contentGet);
 folderRouter.post(
   "/:parentId/new",
+  isAuth,
   validateRequestAsync(createFolderSchema),
   createFolder
 );

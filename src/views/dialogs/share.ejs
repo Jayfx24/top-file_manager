@@ -1,0 +1,18 @@
+<dialog id="dialog--share">
+  <p>Share <span id="fileName"></span> </p>
+  <form action="/share" method="post">
+    <div class="form-group">
+      <label for="fileName">
+        Enter new file name
+      </label>
+      <input type="text" name="fileName" id="fileName">
+      <input type="hidden" name="fileId" id="fileId">
+      <input type="hidden" name="parentId" id="parentId">
+      <input type="hidden" name="fileType" id="fileType">
+      <input type="hidden" name="originalName" id="originalName">
+    </div>
+    <button type="submit">Update</button>
+
+
+  </form>
+</dialog>
