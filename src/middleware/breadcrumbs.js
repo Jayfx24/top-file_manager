@@ -14,7 +14,11 @@ export default async function getBreadcrumbs(req, res, next) {
           where: { id },
         });
   if (!data) return next(new NotFoundError(`${baseUrl} not found`));
-  const groupData = await prisma.folder.findMany();
+  const groupData = await prisma.folder.findMany({
+    where: {
+      authorId: req.user.id,
+    },
+  });
   res.locals.breadcrumbs = reversedWalk(data, groupData);
   console.log(res.locals.breadcrumbs);
   next();

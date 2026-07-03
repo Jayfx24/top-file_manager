@@ -1,9 +1,14 @@
-export function reversedWalk(data, groupData, breadcrumb = []) {
+export function reversedWalk(data, groupData, baseUrl = "", breadcrumb = []) {
   if (!data) return breadcrumb;
-  breadcrumb.unshift({ label: data.name, id: data.id });
+  const base = data.mimetype ? "/files" : "/folders";
+  breadcrumb.unshift({
+    label: data.name,
+    id: data.id,
+    base,
+  });
   const parentId = data.parentId ?? data.folderId;
   const parentData = groupData.find((parent) => parent.id === parentId);
-  return reversedWalk(parentData, groupData, breadcrumb);
+  return reversedWalk(parentData, groupData, base, breadcrumb);
 }
 
 // function walk(folder, data, fileGroup) {
