@@ -12,10 +12,14 @@
 
         <div class="main-content">
           <p>This should show the the content of the projects | all</p>
+          <% if (locals.breadcrumbs) {%>
 
           <%- include("./partials/breadcrumb.ejs") %>
+          <%}%>
 
-
+          <span class="info">
+            <p>folder name</p> <a href="/share/folders/<%=parentId%>"> Share</a>
+          </span>
           <% if (locals.folders){%>
           <table class="table border">
             <thead class="table_header">
@@ -88,7 +92,6 @@
                 </td>
                 <td class="tr__item">
                   <div class="action__btns">
-                    <button class="dialog--share" command="show-modal" commandfor="dialog--share" data-id="<%=folder.id%>" data-type="file" data-name="<%=folder.name%>" data-parent="<%= folder.parentId %>">Share</button>
                     <button class="delete">delete</button>
                     <button class="dialog--update" command="show-modal" commandfor="dialog--update" data-id="<%=file.id%>" data-type="file" data-name="<%=file.name%>" data-parent="<%= file.folderId %>">Update</button>
                   </div>

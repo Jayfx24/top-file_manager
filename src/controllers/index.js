@@ -48,7 +48,7 @@ export async function dashboard(req, res) {
 
   const sideMenu = await getSideMenuData(req.user.id);
 
-  res.locals.breadcrumbs = [{ label: "Home", path: "/" }];
+  // res.locals.breadcrumbs = [{ label: "Home", path: "/" }];
 
   return res.render("dashboard", {
     title: "Dashboard",
@@ -86,3 +86,4 @@ export async function updateFile(req, res) {
 
   res.redirect(`/folders/${parentId}`);
 }
+

@@ -2,16 +2,25 @@
   <p>Share <span id="fileName"></span> </p>
   <form action="/share" method="post">
     <div class="form-group">
-      <label for="fileName">
-        Enter new file name
-      </label>
-      <input type="text" name="fileName" id="fileName">
       <input type="hidden" name="fileId" id="fileId">
       <input type="hidden" name="parentId" id="parentId">
       <input type="hidden" name="fileType" id="fileType">
       <input type="hidden" name="originalName" id="originalName">
     </div>
-    <button type="submit">Update</button>
+
+    <div class="form-group">
+      <label for="endDate">
+        Choose duration
+      </label>
+
+      <select name="endDate" id="endDate">
+        <option value="">---Please choose duration</option>
+        <option value="3">3d</option>
+        <option value="7"> 7d</option>
+        <option value="10"> 10d</option>
+      </select>
+    </div>
+    <button type="submit">Activate</button>
 
 
   </form>

@@ -59,13 +59,13 @@ model File {
 model Shared {
   id           Int       @id @default(autoincrement())
   authorId     Int
-  name         String
-  size         Int
+  itemId       Int
+  size         Int?
   generatedUrl String
   createdAt    DateTime  @default(now())
   isActive     Boolean
   endDate      DateTime
-  type         String
+  type         FileType
   lastSeen     DateTime?
   viewsCount   Int       @default(0)
   author       User      @relation(fields: [authorId], references: [id])
@@ -78,4 +78,10 @@ model Session {
   sid       String   @unique
   data      String // MediumText may be needed for MySql
   expiresAt DateTime
+}
+
+
+enum FileType{
+  folder
+  file
 }
