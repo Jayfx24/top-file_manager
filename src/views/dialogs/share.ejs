@@ -1,19 +1,15 @@
 <dialog id="dialog--share">
   <p>Share <span id="fileName"></span> </p>
   <form action="/share" method="post">
-    <div class="form-group">
-      <input type="hidden" name="fileId" id="fileId">
-      <input type="hidden" name="parentId" id="parentId">
-      <input type="hidden" name="fileType" id="fileType">
-      <input type="hidden" name="originalName" id="originalName">
-    </div>
+    <input type="hidden" name="shareId" id="shareId" >
+    
 
     <div class="form-group">
-      <label for="endDate">
+      <label for="endDateDelta">
         Choose duration
       </label>
 
-      <select name="endDate" id="endDate">
+      <select name="endDateDelta" id="endDateDelta">
         <option value="">---Please choose duration</option>
         <option value="3">3d</option>
         <option value="7"> 7d</option>

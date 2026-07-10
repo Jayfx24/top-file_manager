@@ -1,5 +1,5 @@
 const folders = document.querySelector(".main-list");
-const updateDialogs = document.querySelector(".table");
+const tableDialogs = document.querySelector(".table");
 
 const collapse = (event) => {
   const target = event.target;
@@ -15,10 +15,14 @@ const collapse = (event) => {
 };
 const populateDialog = (event) => {
   const target = event.target;
-  console.log("here");
+  console.log("here", target.dataset.id);
   if (!["folder", "file"].includes(target.dataset.type)) return;
-  console.log("pass");
 
+  if (target.dataset.func === "share") {
+    (document.querySelector("#shareId").value = target.dataset.id);
+    return
+  }
+  
   document.querySelector("#originalName").value = target.dataset.name;
   document.querySelector("#fileName").value =
     target.dataset.name.split(/\.\w+$/i)?.[0];
@@ -28,7 +32,7 @@ const populateDialog = (event) => {
 };
 
 folders.addEventListener("click", collapse);
-updateDialogs.addEventListener("click", populateDialog);
+tableDialogs.addEventListener("click", populateDialog);
 
 // const displayFile = (fileType, url) => {
 //   switch (fileType) {

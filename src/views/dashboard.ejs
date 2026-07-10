@@ -57,9 +57,9 @@
 
                 <td class="tr__item">
                   <div class="action__btns">
-                    <button class="dialog--share" command="show-modal" commandfor="dialog--share" data-id="<%=folder.id%>" data-type="folder" data-name="<%=folder.name%>" data-parent="<%= folder.parentId %>">Share</button>
                     <button class=" delete">delete</button>
                     <button class="dialog--update" command="show-modal" commandfor="dialog--update" data-id="<%=folder.id%>" data-type="folder" data-name="<%=folder.name%>" data-parent="<%= folder.parentId %>">Update</button>
+                    <button class="dialog--share" command="show-modal" commandfor="dialog--share" data-id="<%=folder.id%>" data-type="folder" data-name="<%=folder.name%>"  data-func="share" data-parent="<%= folder.parentId %>">Share</button>
                   </div>
                 </td>
               </tr>

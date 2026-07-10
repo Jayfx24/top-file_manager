@@ -1,28 +1,34 @@
 import { prisma } from "../lib/prisma.js";
 
 export async function postShareFolder(req, res, next) {
+   if (req.session.validateErrors) {
+    return res.redirect("/dashboard");
+  }
+
   console.log("this should share the folder");
-  const { folderId, endDate } = req.body;
+  console.log(req.body)
+  const { shareId, endDateDelta } = req.body;
 
-  const data = {
-    authorId: req.user.id,
-    itemId: folderId,
-    generatedUrl: crypto.randomUUID(),
-    isActive: true,
-    endDate,
-    type: "folder",
-  };
+  // const data = {
+  //   authorId: req.user.id,
+  //   itemId: fileId,
+  //   generatedUrl: crypto.randomUUID(),
+  //   isActive: true,
+  //   endDate,
+  //   type: "folder",
+  // };
 
-  // get shared folder id,
-  // save shared folder id, generate route id for unauth user
+  // // get shared folder id,
+  // // save shared folder id, generate route id for unauth user
 
-  await prisma.shared.create({
-    data,
-    users,
-  });
+  // await prisma.shared.create({
+  //   data,
+  //   users,
+  // });
 
   //
-  next();
+  // next();
+  res.redirect(301,"/dashboard")
 }
 
 export async function postShareFile(req, res, next) {

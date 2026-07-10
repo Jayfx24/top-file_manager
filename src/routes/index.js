@@ -14,6 +14,7 @@ import { registerSchema } from "../validator/schema.js";
 import { updateSchema } from "../validator/update.schema.js";
 import folderRouter from "./folder.router.js";
 import fileRouter from "./file.router.js";
+import shareRouter from "./share.router.js";
 import passport from "passport";
 
 
@@ -21,6 +22,7 @@ const router = Router();
 // if user is authenticated redirect to dashboard
 router.use("/files", fileRouter);
 router.use("/folders", folderRouter);
+router.use("/share", shareRouter);
 router.post(
   "/login",
   passport.authenticate("local", {
