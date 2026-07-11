@@ -2,11 +2,11 @@ import { prisma } from "../lib/prisma.js";
 import { } from "../errors/Unauthorized.error.js";
 
 export async function isSharedAuth(req, res, next) {
-  const { id } = req.params;
+  const { shareUrl } = req.params;
    
   const isAuth = await prisma.shared.findUnique({
     where: {
-      id: Number(id),
+      generatedUrl: shareUrl,
     },
   });
   if (!isAuth) return  res

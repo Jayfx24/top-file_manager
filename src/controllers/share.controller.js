@@ -35,22 +35,22 @@ export async function postShareFile(req, res, next) {
 export async function getList(req, res, next) {
   // generate all children of the folder
   console.log("this should show the share info page");
-  res.locals.fullUrl = (shareId, folderId, url) =>
-    req.protocol + "://" + req.get("host") + "/share/" + shareId + "/"+ folderId + "/"  + url;
-  const sharedItems = await prisma.shared.findMany({
+  res.locals.fullUrl = (folderId, url) =>
+    req.protocol + "://" + req.get("host") + "/share/" + url + "/" + folderId;
+
+  const userSharedData = await prisma.shared.findMany({
     where: {
       authorId: req.user.id,
     },
   });
+  
 
-  return res.render("shared", { sharedItems });
+  return res.render("shared", { userSharedData });
 }
 
 export async function getSharedDashboard(req, res, next) {
-  const { id,folderId, shareUrl } = req.params;
-  
-  const data = await getSharedFolder(id);
-  console.log("child folders ",folderId)
+  const { shareUrl, folderId } = req.params;
+  const data = await getSharedFolder(shareUrl);
 
   return res.render("dashboard", {
     title: "Content",

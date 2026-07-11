@@ -9,7 +9,7 @@
       <div class="content">
         <div class="shared__content">
 
-          <% if (locals.sharedItems) {%>
+          <% if (locals.userSharedData) {%>
           <table class="shared__table">
             <thead class="t__header">
               <tr class="th__row">
@@ -22,7 +22,7 @@
               </tr>
             </thead>
             <tbody>
-              <% sharedItems.forEach((item)=>{%>
+              <% userSharedData.forEach((item)=>{%>
               <tr class="t-row">
                 <td class="t__item">
                   <p>
@@ -32,8 +32,8 @@
 
                 <td class="t__item">
 
-                  <a href="<%= fullUrl(item.id,item.itemId,item.generatedUrl) %>" class="">
-                    <%= fullUrl(item.id,item.itemId,item.generatedUrl) %>
+                  <a href="<%= fullUrl(item.itemId,item.generatedUrl) %>" class="">
+                    <%= fullUrl(item.itemId,item.generatedUrl) %>
                   </a>
 
                 </td>

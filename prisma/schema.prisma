@@ -57,11 +57,11 @@ model File {
 }
 
 model Shared {
-  id           Int       @id @default(autoincrement())
+  // id           Int       @id @default(autoincrement())
   authorId     Int
   itemId       Int
   size         Int?
-  generatedUrl String
+  generatedUrl String   @unique
   createdAt    DateTime  @default(now())
   isActive     Boolean
   endDate      DateTime
@@ -70,6 +70,7 @@ model Shared {
   viewsCount   Int       @default(0)
   author       User      @relation(fields: [authorId], references: [id])
 
+  @@id([generatedUrl])
   @@map("shared")
 }
 

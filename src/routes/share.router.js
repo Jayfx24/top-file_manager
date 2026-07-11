@@ -11,7 +11,7 @@ import { isSharedAuth } from "../middleware/shared.auth.js";
 const shareRouter = Router();
 
 shareRouter.get("/list", isAuth, getList);
-shareRouter.get("/:id/:folderId/:shareUrl", isSharedAuth, getSharedDashboard);
+shareRouter.get("/:shareUrl/:folderId", isSharedAuth, getSharedDashboard);
 // shareRouter.get("/:shareUrl/:id/:folderId", getSharedDashboard);
 shareRouter.post("/", isAuth, validateRequest(shareSchema), postShareFolder);
 

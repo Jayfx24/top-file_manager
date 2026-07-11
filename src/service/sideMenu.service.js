@@ -30,10 +30,10 @@ export async function getSideMenuData(userId) {
   };
 }
 
-export async function getSharedFolder(id) {
+export async function getSharedFolder(generatedUrl) {
   const shared = await prisma.shared.findUnique({
     where: {
-      id: Number(id),
+      generatedUrl: generatedUrl,
     },
   });
   console.log(shared);
