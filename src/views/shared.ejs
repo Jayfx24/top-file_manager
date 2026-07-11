@@ -8,17 +8,70 @@
     <section class="container">
       <div class="content">
         <div class="shared__content">
+
+          <% if (locals.sharedItems) {%>
           <table class="shared__table">
             <thead class="t__header">
               <tr class="th__row">
-                <th class="th__item">File name</th>
-                <th class="th__item">Est. size</th>
-                <th class="th__item">shared date</th>
+                <th class="th__item">Item name</th>
+                <th class="th__item">Full Url</th>
+                <th class="th__item">Shared date</th>
+                <th class="th__item">Time left</th>
                 <th class="th__item">views</th>
                 <th class="th__item">last viewed</th>
               </tr>
             </thead>
+            <tbody>
+              <% sharedItems.forEach((item)=>{%>
+              <tr class="t-row">
+                <td class="t__item">
+                  <p>
+                    <%= item.name %>
+                  </p>
+                </td>
+
+                <td class="t__item">
+
+                  <a href="" class="">
+                    <%= fullUrl(item.generatedUrl) %>
+                  </a>
+
+                </td>
+
+                <td class="t__item">
+                  <p>
+                    <%= item.createdAt.toLocaleDateString() %>
+                  </p>
+                </td>
+
+                <td class="t__item">
+                  <p>
+                    <%= item.endDate.toLocaleDateString() %>
+                  </p>
+                </td>
+
+
+                <td class="t__item">
+                  <p>
+                    <%= item.viewCount %>
+                  </p>
+                </td>
+
+
+                <td class="t__item">
+                  <p>
+                    <%= item?.lastSeen?.toLocaleDateString() || 'null' %>
+                  </p>
+                </td>
+              </tr>
+              <%})%>
+
+
+
+
+            </tbody>
           </table>
+          <%}%>
         </div>
       </div>
     </section>

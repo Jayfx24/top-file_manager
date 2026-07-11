@@ -1,34 +1,33 @@
 import { prisma } from "../lib/prisma.js";
 
 export async function postShareFolder(req, res, next) {
-   if (req.session.validateErrors) {
+  if (req.session.validateErrors) {
     return res.redirect("/dashboard");
   }
-
-  console.log("this should share the folder");
-  console.log(req.body)
   const { shareId, endDateDelta } = req.body;
+  const date = new Date();
 
-  // const data = {
-  //   authorId: req.user.id,
-  //   itemId: fileId,
-  //   generatedUrl: crypto.randomUUID(),
-  //   isActive: true,
-  //   endDate,
-  //   type: "folder",
-  // };
+  date.setDate(date.getDate() + endDateDelta);
+  const data = {
+    authorId: req.user.id,
+    itemId: shareId,
+    generatedUrl: crypto.randomUUID(),
+    isActive: true,
+    endDate: date,
+    type: "folder",
+  };
+  console.log(data);
 
   // // get shared folder id,
   // // save shared folder id, generate route id for unauth user
 
-  // await prisma.shared.create({
-  //   data,
-  //   users,
-  // });
+  await prisma.shared.create({
+    data,
+  });
 
   //
   // next();
-  res.redirect(301,"/dashboard")
+  res.redirect(301, "/share/list");
 }
 
 export async function postShareFile(req, res, next) {
@@ -36,10 +35,17 @@ export async function postShareFile(req, res, next) {
   next();
 }
 
-export async function viewFolder(req, res, next) {
+export async function getList(req, res, next) {
   // generate all children of the folder
-  console.log("this should share the folder");
-  next();
+  console.log("this should show the share info page");
+  res.locals.fullUrl = (url) => req.protocol + "://" + req.get("host") + url;
+  const sharedItems = await prisma.shared.findMany({
+    where: {
+      authorId: req.user.id,
+    },
+  });
+
+  return res.render("shared", { sharedItems });
 }
 
 export async function viewFile(req, res, next) {
