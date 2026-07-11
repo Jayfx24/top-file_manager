@@ -36,14 +36,13 @@ export async function getList(req, res, next) {
   // generate all children of the folder
   console.log("this should show the share info page");
   res.locals.fullUrl = (folderId, url) =>
-    req.protocol + "://" + req.get("host") + "/share/" + url + "/" + folderId;
+    req.protocol + "://" + req.get("host") + "/share/folder/" + url + "/" + folderId;
 
   const userSharedData = await prisma.shared.findMany({
     where: {
       authorId: req.user.id,
     },
   });
-  
 
   return res.render("shared", { userSharedData });
 }
@@ -56,29 +55,23 @@ export async function getSharedDashboard(req, res, next) {
     title: "Content",
     parentId: Number(folderId),
     ...data,
+    shareUrl,
   });
 }
 
-export async function getSharedContent(req, res) {
-  const id = Number(req.params.id);
-  const sideMenu = await getSideMenuData(req.user.id);
-  const currentFolder = await prisma.folder.findUnique({
+export async function getSharedFile(req, res) {
+  const { shareUrl, folderId, id } = req.params;
+
+  const file = await prisma.file.findUnique({
     where: {
-      id,
+      id: Number(id),
+      folderId: Number(folderId),
     },
   });
-  if (!currentFolder) return new NotfoundError("Folder not found");
-  res.locals.currentPage = { base: req.baseUrl, path: id };
-  console.log(res.locals.currentPage);
-  console.log(req.path, req.baseUrl);
 
-  console.log("Breadcrumbs");
+  if (!file) throw new NotfoundError("File not found");
 
-  return res.render("dashboard", {
-    title: "Content",
-    parentId: id,
-    ...sideMenu,
-  });
+  console.log(file);
+  res.render("file", { title: "FIle name", file });
 }
-
 // for shared folder only need to keep its folder id

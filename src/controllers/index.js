@@ -47,7 +47,7 @@ export async function dashboard(req, res) {
   delete req.session.validateErrors;
 
   const sideMenu = await getSideMenuData(req.user.id);
-
+  res.locals.currentUser = req.user.id;
   // res.locals.breadcrumbs = [{ label: "Home", path: "/" }];
 
   return res.render("dashboard", {
@@ -86,4 +86,3 @@ export async function updateFile(req, res) {
 
   res.redirect(`/folders/${parentId}`);
 }
-

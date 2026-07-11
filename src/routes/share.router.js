@@ -5,14 +5,20 @@ import {
   postShareFolder,
   getList,
   getSharedDashboard,
+  getSharedFile,
 } from "../controllers/share.controller.js";
 import { isAuth } from "../middleware/auth.middleware.js";
 import { isSharedAuth } from "../middleware/shared.auth.js";
+
 const shareRouter = Router();
 
 shareRouter.get("/list", isAuth, getList);
-shareRouter.get("/:shareUrl/:folderId", isSharedAuth, getSharedDashboard);
-// shareRouter.get("/:shareUrl/:id/:folderId", getSharedDashboard);
+shareRouter.get(
+  "/folder/:shareUrl/:folderId",
+  isSharedAuth,
+  getSharedDashboard
+);
+shareRouter.get("/file/:shareUrl/:folderId/:id", isSharedAuth, getSharedFile);
 shareRouter.post("/", isAuth, validateRequest(shareSchema), postShareFolder);
 
 export default shareRouter;

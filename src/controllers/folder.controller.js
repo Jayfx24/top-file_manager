@@ -32,6 +32,8 @@ export async function contentGet(req, res) {
   });
   if (!currentFolder) return new NotfoundError("Folder not found");
   res.locals.currentPage = { base: req.baseUrl, path: id };
+  res.locals.currentUser = req.user.id;
+
   console.log(res.locals.currentPage);
   console.log(req.path, req.baseUrl);
 
