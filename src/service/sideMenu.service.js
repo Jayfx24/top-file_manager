@@ -29,3 +29,39 @@ export async function getSideMenuData(userId) {
     folders,
   };
 }
+
+export async function getSharedFolder(id) {
+  const shared = await prisma.shared.findUnique({
+    where: {
+      id: Number(id),
+    },
+  });
+  console.log(shared);
+  const anchorFolders = await prisma.folder.findMany({
+    where: {
+      id: shared.itemId,
+    },
+  });
+  console.log(anchorFolders);
+
+  const userFiles = await prisma.file.findMany({
+    where: {
+      authorId: shared.authorId,
+    },
+  });
+  const folders = await prisma.folder.findMany({
+    where: {
+      authorId: shared.authorId,
+    },
+  });
+  const folderGroup = Object.groupBy(folders, ({ parentId }) => parentId);
+  const fileGroup = Object.groupBy(userFiles, ({ folderId }) => folderId);
+
+  return {
+    anchorFolders,
+    userFiles,
+    folderGroup,
+    fileGroup,
+    folders,
+  };
+}

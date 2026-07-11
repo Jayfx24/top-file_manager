@@ -12,9 +12,14 @@
       Projects
     </h2>
 
-    <% function walk(folder, data, fileGroup) { if (!data) return '' ; const children=data[String(folder.id)] ?? [];
-            const files=fileGroup[String(folder.id)] ?? []; const items=children.concat(files); if (items.length <=0)
-            return "" ; let html=`<ul class="sub__list hide">`;
+    <% function walk(folder, data, fileGroup) { 
+      
+      if (!data) return '' ; 
+      const children=data[String(folder.id)] ?? [];
+            const files=fileGroup[String(folder.id)] ?? []; 
+            const items=children.concat(files); 
+            if (items.length <=0)            return "" ;
+             let html=`<ul class="sub__list hide">`;
 
             items.forEach((ele) => {
             if (!ele.mimetype) {

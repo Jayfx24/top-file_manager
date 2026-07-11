@@ -11,34 +11,12 @@ export function reversedWalk(data, groupData, baseUrl = "", breadcrumb = []) {
   return reversedWalk(parentData, groupData, base, breadcrumb);
 }
 
-// function walk(folder, data, fileGroup) {
-//   if (!data) return "";
-//   const children = data[String(folder.id)] ?? [];
-//   const files = fileGroup[String(folder.id)] ?? [];
-//   const items = children.concat(files);
-//   if (items.length <= 0) return "";
-//   let html = `<ul class="sub__list hide">`;
+function walkFolder(folder, folderGroup, fileGroup){
+  if (!folder) return ""
+  const childrenFolder = folderGroup[String(folder.id)]
+      // get child
 
-//   items.forEach((ele) => {
-//     if (!ele.mimetype) {
-//       html += `
-//             <li class="folder__item" data-type="folder">
-//                 <a href="/folders/${ele.id}">
-//                     ${ele.name}
-//                 </a>
-//                 ${walk(ele, data, fileGroup)}
-//             </li>`;
-//     } else {
-//       html += `
-//             <li class="folder__item">
-//                 <a href="/files/${ele.id}">
-//                     ${ele.name}
-//                 </a>
 
-//             </li>`;
-//     }
-//   });
-//   html += `</ul>`;
-//   return html;
-// }
+}
+
 
