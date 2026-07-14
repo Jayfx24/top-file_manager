@@ -1,4 +1,4 @@
-import Unauthorized from "../errors/Unauthorized.error.js";
+import UnauthorizedError from "../errors/Unauthorized.error.js";
 import NotfoundError from "../errors/NotFound.error.js";
 import { prisma } from "../lib/prisma.js";
 export async function uploadFile(req, res) {
@@ -38,4 +38,30 @@ export async function getFile(req, res) {
 
   console.log(file);
   res.render("file", { title: "FIle name", file });
+}
+
+export async function postFileDelete(req, res) {
+  if (req.session.validateErrors) {
+    return res.redirect("/dashboard");
+  }
+
+  const id = Number(req.params.id);
+
+  const file = await prisma.file.findUnique({
+    where: {
+      id,
+    },
+  });
+  if (!file) throw new NotFoundError("file not found");
+
+  if (file.authorId !== Number(req.user.id))
+    throw new UnauthorizedError(
+      "You are not permitted to complete this action"
+    );
+
+  await prisma.file.delete({
+    where: { id },
+  });
+
+  return res.redirect(req.get("Referrer") || "/");
 }

@@ -1,6 +1,7 @@
 import { prisma } from "../lib/prisma.js";
 import { getSideMenuData } from "../service/sideMenu.service.js";
 import NotFoundError from "../errors/NotFound.error.js";
+import UnauthorizedError from "../errors/Unauthorized.error.js";
 
 export async function createFolder(req, res) {
   if (req.session.validateErrors) {
@@ -44,4 +45,30 @@ export async function contentGet(req, res) {
     parentId: id,
     ...sideMenu,
   });
+}
+
+export async function postFolderDelete(req, res) {
+  if (req.session.validateErrors) {
+    return res.redirect("/dashboard");
+  }
+
+  const id = Number(req.params.id);
+
+  const folder = await prisma.folder.findUnique({
+    where: {
+      id,
+    },
+  });
+  if (!folder) throw new NotFoundError("folder not found");
+
+  if (folder.authorId !== Number(req.user.id))
+    throw new UnauthorizedError(
+      "You are not permitted to complete this action"
+    );
+
+  await prisma.folder.delete({
+    where: { id },
+  });
+
+  return res.redirect(req.get("Referrer") || "/");
 }

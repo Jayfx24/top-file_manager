@@ -61,8 +61,8 @@
                   <%= folder.lastSeen %>
                 </td>
                 <td class="tr__item">
-                  <div class="action__btns">
-                    <button class=" delete">delete</button>
+                  <div class="action__btns row">
+                    <form action="/folders/<%=folder.id%>/delete" method="post"><button class="delete">delete</button></form>
                     <button class="dialog--update" command="show-modal" commandfor="dialog--update" data-id="<%=folder.id%>" data-type="folder" data-name="<%=folder.name%>" data-parent="<%= folder.parentId %>">Update</button>
                     <button class="dialog--share" command="show-modal" commandfor="dialog--share" data-id="<%=folder.id%>" data-type="folder" data-name="<%=folder.name%>" data-func="share" data-parent="<%= folder.parentId %>">Share</button>
                   </div>
@@ -97,9 +97,9 @@
 
                 <td class="tr__item">
                   <%= file.createdAt.toLocaleDateString() %>
-                 
 
-                                                                                    %>
+
+                  %>
                 </td>
 
                 <% if(locals.currentUser === file.authorId){%>
@@ -108,7 +108,8 @@
                 </td>
                 <td class="tr__item">
                   <div class="action__btns">
-                    <button class="delete">delete</button>
+                    <form action="/files/<%=file.id%>/delete" method="post"><button class="delete">delete</button></form>
+
                     <button class="dialog--update" command="show-modal" commandfor="dialog--update" data-id="<%=file.id%>" data-type="file" data-name="<%=file.name%>" data-parent="<%= file.folderId %>">Update</button>
                   </div>
                 </td>
