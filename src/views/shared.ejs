@@ -19,6 +19,7 @@
                 <th class="th__item">Time left</th>
                 <th class="th__item">views</th>
                 <th class="th__item">last viewed</th>
+                <th class="th__item">actions</th>
               </tr>
             </thead>
             <tbody>
@@ -62,6 +63,10 @@
                   <p>
                     <%= item?.lastSeen?.toLocaleDateString() || 'null' %>
                   </p>
+                </td>
+
+                <td class="t__item">
+                  <a href="/share/<%= item.generatedUrl %>/deactivate">Deactivate</a>
                 </td>
               </tr>
               <%})%>

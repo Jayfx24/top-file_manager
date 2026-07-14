@@ -6,6 +6,7 @@ import {
   getList,
   getSharedDashboard,
   getSharedFile,
+  deactivateShared
 } from "../controllers/share.controller.js";
 import { isAuth } from "../middleware/auth.middleware.js";
 import { isSharedAuth } from "../middleware/shared.auth.js";
@@ -18,7 +19,9 @@ shareRouter.get(
   isSharedAuth,
   getSharedDashboard
 );
+
 shareRouter.get("/file/:shareUrl/:folderId/:id", isSharedAuth, getSharedFile);
+shareRouter.get("/:shareUrl/deactivate", isSharedAuth, deactivateShared);
 shareRouter.post("/", isAuth, validateRequest(shareSchema), postShareFolder);
 
 export default shareRouter;

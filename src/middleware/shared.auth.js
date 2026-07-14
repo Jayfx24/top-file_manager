@@ -9,7 +9,7 @@ export async function isSharedAuth(req, res, next) {
       generatedUrl: shareUrl,
     },
   });
-  if (!isAuth) return  res
+  if (!isAuth && !isAuth.isActive ) return  res
       .status(401)
       .json({ msg: "You are not authorizes to view this resource" }); 
   next();

@@ -11,7 +11,7 @@
         <%- include("./partials/sideMenu.ejs") %>
 
         <div class="main-content">
-          <p>This should show the the content of the projects | all</p>
+          <!-- <p>This should show the the content of the projects | all</p> -->
           <% if (locals.breadcrumbs) {%>
 
           <%- include("./partials/breadcrumb.ejs") %>
@@ -26,7 +26,7 @@
                 <th class="th__item">size</th>
                 <th class="th__item">created</th>
                 <% if(locals.currentUser || !locals.shareUrl){%>
-                  <th class="th__item">last opened</th>
+                <th class="th__item">last opened</th>
                 <th class="th__item">actions</th>
                 <%}%>
               </tr>
@@ -34,7 +34,7 @@
 
 
             <% locals.folders.forEach((folder)=> { %>
-            <% if (folder.parentId===parentId){%>
+                <% if (folder.parentId===parentId){%>
             <tbody>
               <tr class="tr__row">
                 <td class="tr__item">
@@ -57,9 +57,9 @@
                 </td>
 
                 <% if(locals.currentUser === folder.authorId){%>
-                  <td class="tr__item">
-                    <%= folder.lastSeen %>
-                  </td>
+                <td class="tr__item">
+                  <%= folder.lastSeen %>
+                </td>
                 <td class="tr__item">
                   <div class="action__btns">
                     <button class=" delete">delete</button>
@@ -72,10 +72,10 @@
 
               <% }%>
 
-              <% })%>
-              <% if (locals.userFiles){%>
-              <% locals?.userFiles.forEach((file)=> { %>
-              <% if (file.folderId===parentId){%>
+                <% })%>
+                <% if (locals.userFiles){%>
+                <% locals?.userFiles.forEach((file)=> { %>
+                <% if (file.folderId===parentId){%>
               <tr class="tr__row">
                 <td class="tr__item">
                   <% if (locals.shareUrl){%>
@@ -96,14 +96,16 @@
                 </td>
 
                 <td class="tr__item">
-                  <%= file.createdAt.toLocaleDateString()
+                  <%= file.createdAt.toLocaleDateString() %>
+                 
+
                                                                                     %>
                 </td>
 
                 <% if(locals.currentUser === file.authorId){%>
-                  <td class="tr__item">
-                    <%= file.lastSeen %>
-                  </td>
+                <td class="tr__item">
+                  <%= file.lastSeen %>
+                </td>
                 <td class="tr__item">
                   <div class="action__btns">
                     <button class="delete">delete</button>
@@ -115,9 +117,9 @@
 
               <% }%>
 
-              <% })%>
+                <% })%>
 
-              <%}%>
+                <%}%>
 
                                                 </tbody>
                                     </table>

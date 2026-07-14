@@ -36,11 +36,18 @@ export async function getList(req, res, next) {
   // generate all children of the folder
   console.log("this should show the share info page");
   res.locals.fullUrl = (folderId, url) =>
-    req.protocol + "://" + req.get("host") + "/share/folder/" + url + "/" + folderId;
+    req.protocol +
+    "://" +
+    req.get("host") +
+    "/share/folder/" +
+    url +
+    "/" +
+    folderId;
 
   const userSharedData = await prisma.shared.findMany({
     where: {
       authorId: req.user.id,
+      isActive: true,
     },
   });
 
@@ -51,6 +58,7 @@ export async function getSharedDashboard(req, res, next) {
   const { shareUrl, folderId } = req.params;
   const data = await getSharedFolder(shareUrl);
 
+  if (req.isAuthenticated()) res.locals.currentUser = req.user.id;
   return res.render("dashboard", {
     title: "Content",
     parentId: Number(folderId),
@@ -71,7 +79,23 @@ export async function getSharedFile(req, res) {
 
   if (!file) throw new NotfoundError("File not found");
 
-  console.log(file);
+  if (req.isAuthenticated()) res.locals.currentUser = req.user.id;
+  console.log("current user", res.locals.currentUser);
   res.render("file", { title: "FIle name", file });
+}
+
+export async function deactivateShared(req, res) {
+  const shareUrl = req.params.shareUrl;
+
+  await prisma.shared.update({
+    data: {
+      isActive: false,
+    },
+    where: {
+      generatedUrl: shareUrl,
+    },
+  });
+
+  redirect('share/list')
 }
 // for shared folder only need to keep its folder id
