@@ -2,13 +2,15 @@ const folders = document.querySelector(".main-list");
 const tableDialogs = document.querySelector(".table");
 
 const collapse = (event) => {
-  const target = event.target;
+  const target = event.target.closest("li");
   console.log(target.tagName);
   if (target.dataset.type !== "folder") return;
 
   target.dataset.collapse = target.dataset.collapse === "true" ? false : true;
 
   const closestList = target.querySelector("ul");
+  const dropdown = target.querySelector(".dropdown");
+  dropdown.classList.toggle("open")
   if (!closestList) return;
   closestList.classList.toggle("hide");
   //   console.log(closestList.tagName, closestList.className)
