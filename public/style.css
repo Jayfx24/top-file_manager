@@ -1,7 +1,47 @@
 @import url('./reset.css');
 
 :root {
-    --max-width: 1250px
+    --max-width: 1250px;
+
+    --t-header-clr: lightgrey;
+    /* CSS HSL */
+    --gray-50: hsla(210, 17%, 98%, 1);
+    --gray-100: hsla(210, 16%, 93%, 1);
+    --gray-200: hsla(210, 14%, 89%, 1);
+    --gray-300: hsla(210, 14%, 83%, 1);
+    --gray-400: hsla(210, 11%, 71%, 1);
+    --gray-500: hsla(208, 7%, 46%, 1);
+    --gray-600: hsla(210, 9%, 31%, 1);
+    --gray-700: hsla(210, 10%, 23%, 1);
+    --gray-900: hsla(210, 11%, 15%, 1);
+
+    /* danger */
+    --red-500: hsla(354, 71%, 45%, 1);
+    --red-600: hsla(354, 53%, 43%, 1);
+    --red-700: hsla(351, 71%, 38%, 1);
+    --red-800: hsla(353, 73%, 26%, 1);
+    --red-900: hsla(345, 76%, 20%, 1);
+
+
+    /* accent */
+
+    --blue-500: hsla(200, 100%, 49%, 1);
+    --blue-600: hsla(202, 95%, 41%, 1);
+    --blue-700: hsla(199, 100%, 29%, 1);
+    --blue-800: hsla(202, 100%, 16%, 1);
+    --blue-900: hsla(200, 75%, 8%, 1);
+
+    /*  */
+    --bg-clr: var(--gray-100);
+    --header-clr: var(--gray-300);
+    --txt-clr: var(--gray-600);
+    --side-menu-clr: var(--gray-300);
+    --accent-clr: var(--blue-500);
+    --accent-clr-warning: var(--red-500);
+    --side-menu-clr: var(--gray-300);
+
+
+
 }
 
 
@@ -9,15 +49,16 @@ body {
     min-height: 100dvh;
 }
 
-ul{
+ul {
     list-style: none;
     padding: 0;
     cursor: pointer;
 }
 
-main{
+main {
     width: 100%;
 }
+
 /*  */
 .container {
     max-width: var(--max-width);
@@ -29,10 +70,23 @@ main{
     min-height: 100vh;
 }
 
-
-.sideMenu {
-    min-width: 400px;
+.row {
+    display: flex;
 }
+
+.gap-1{
+    gap: 0.25rem
+}
+
+.gap-2{
+    gap: 0.5rem
+}
+.gap-4 {
+    gap: 1rem;
+}
+
+
+
 
 /*  */
 .border {
@@ -54,30 +108,60 @@ main{
 /*  */
 /* anchors */
 /* sub list */
-.sub__list{
+.sub__list {
     padding-inline: 1rem;
     border-inline-start: 1px solid;
 }
 
-.main-content{
+.main-content {
     width: 100%;
+}
+
+
+/* nav */
+.nav__list {
+    justify-content: end;
 }
 
 /* table */
 
 
-.table{
+.table {
     width: 100%;
+
+    border-spacing: 0;
 }
-.th__row{
+
+.th__row {
     text-align: left;
 }
 
-table,th,td{
-    border: 1px solid;
-    
+th {
+    background-color: var(--t-header-clr);
 }
 
-th,td{
+th,
+td {
+    border: 1px solid;
+    border-bottom: none;
+    border-left: none;
+
+
+}
+
+th,
+td {
     padding: .5rem;
+}
+
+/* side Menu */
+
+.side-menu{
+    padding: 2rem 1rem;
+    width: 22rem;
+}
+
+.actions{
+    display: flex;
+
 }

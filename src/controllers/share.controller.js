@@ -36,7 +36,7 @@ export async function getList(req, res, next) {
   // generate all children of the folder
   console.log("this should show the share info page");
   res.locals.fullUrl = (folderId, url) =>
-    req.protocol + "://" + req.get("host") + url + "/" + folderId;
+    req.protocol + "://" + req.get("host") +"/share/folder/" + url + "/" + folderId;
 
   const userSharedData = await prisma.shared.findMany({
     where: {

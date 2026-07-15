@@ -6,7 +6,9 @@
   <%- include("./partials/header.ejs") %>
 
   <main>
+
     <section class="container">
+      
       <div class="content flex gap">
         <%- include("./partials/sideMenu.ejs") %>
 
@@ -61,7 +63,7 @@
                   <%= folder.lastSeen %>
                 </td>
                 <td class="tr__item">
-                  <div class="action__btns row">
+                  <div class="action__btns flex">
                     <form action="/folders/<%=folder.id%>/delete" method="post"><button class="delete">delete</button></form>
                     <button class="dialog--update" command="show-modal" commandfor="dialog--update" data-id="<%=folder.id%>" data-type="folder" data-name="<%=folder.name%>" data-parent="<%= folder.parentId %>">Update</button>
                     <button class="dialog--share" command="show-modal" commandfor="dialog--share" data-id="<%=folder.id%>" data-type="folder" data-name="<%=folder.name%>" data-func="share" data-parent="<%= folder.parentId %>">Share</button>
@@ -107,7 +109,7 @@
                   <%= file.lastSeen %>
                 </td>
                 <td class="tr__item">
-                  <div class="action__btns">
+                  <div class="action__btns flex">
                     <form action="/files/<%=file.id%>/delete" method="post"><button class="delete">delete</button></form>
 
                     <button class="dialog--update" command="show-modal" commandfor="dialog--update" data-id="<%=file.id%>" data-type="file" data-name="<%=file.name%>" data-parent="<%= file.folderId %>">Update</button>
