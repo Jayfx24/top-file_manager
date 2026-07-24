@@ -3,6 +3,8 @@ export const isAuth = (req, res, next) => {
   else {
     res
       .status(401)
-      .json({ msg: "You are not authorizes to view this resource" });
+      // .json({ msg: "You are not authorizes to view this resource" });
+      .redirect("/login")
+
   }
 };

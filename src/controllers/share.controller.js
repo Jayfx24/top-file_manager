@@ -6,18 +6,20 @@ export async function postShareFolder(req, res, next) {
     return res.redirect("/dashboard");
   }
   const { shareId, endDateDelta } = req.body;
+  console.log(req.body)
   const date = new Date();
-
+  const generatedUrl = crypto.randomUUID();
   date.setDate(date.getDate() + endDateDelta);
   const data = {
     authorId: req.user.id,
     itemId: shareId,
-    generatedUrl: crypto.randomUUID(),
+    generatedUrl,
     isActive: true,
     endDate: date,
     type: "folder",
   };
-
+  console.log('Supposed prisma data :')
+  console.log( data)
   await prisma.shared.create({
     data,
   });
@@ -36,7 +38,13 @@ export async function getList(req, res, next) {
   // generate all children of the folder
   console.log("this should show the share info page");
   res.locals.fullUrl = (folderId, url) =>
-    req.protocol + "://" + req.get("host") +"/share/folder/" + url + "/" + folderId;
+    req.protocol +
+    "://" +
+    req.get("host") +
+    "/share/folder/" +
+    url +
+    "/" +
+    folderId;
 
   const userSharedData = await prisma.shared.findMany({
     where: {
