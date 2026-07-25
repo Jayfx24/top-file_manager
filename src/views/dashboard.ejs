@@ -21,7 +21,7 @@
 
           
           <% if (locals.folders){%>
-          <table class="table border">
+          <table class="table ">
             <thead class="table_header">
               <tr class="th__row">
                 <th class="th__item">File Name</th>
@@ -45,7 +45,9 @@
                     <%= folder.name %>
                   </a>
                   <% }else{%>
-                  <a href="/folders/<%=folder?.id%>">
+                  <a href="/folders/<%=folder?.id%>" class="row gap-1">
+                    <i class="icons" data-lucide="folder"></i>
+
                     <%= folder.name %>
                   </a>
                   <% }%>
@@ -55,7 +57,14 @@
                 </td>
 
                 <td class="tr__item">
-                  <%= folder.createdAt.toLocaleDateString() %>
+                  <%= folder.createdAt.toLocaleDateString("en-US",{
+                    month: "short",
+                    day: "numeric",
+                    year: "numeric",
+                    hour: "2-digit", 
+                    minute: "2-digit", 
+                    hour12: true,
+                  }) %>
                 </td>
 
                 <% if(locals.currentUser === folder.authorId){%>
@@ -64,18 +73,18 @@
                 </td>
                 <td class="tr__item">
                   <div class="action__btns flex gap-2">
-                    <button class="dialog--update" command="show-modal" commandfor="dialog--update" data-id="<%=folder.id%>" data-type="folder" data-name="<%=folder.name%>" data-parent="<%= folder.parentId %>">
-                      <i data-lucide="save-plus"></i>
+                    <button class="dialog--update strip" command="show-modal" commandfor="dialog--update" data-id="<%=folder.id%>" data-type="folder" data-name="<%=folder.name%>" data-parent="<%= folder.parentId %>">
+                      <i data-lucide="save-plus" class="icons"></i>
 
                     </button>
                     <form action="/folders/<%=folder.id%>/delete" method="post">
-                      <button class="delete">
-                        <i data-lucide="trash"></i>
+                      <button class="delete strip">
+                        <i data-lucide="trash" class="icons"></i>
 
                       </button>
                     </form>
-                    <button class="dialog--share" command="show-modal" commandfor="dialog--share" data-id="<%=folder.id%>" data-type="folder" data-name="<%=folder.name%>" data-func="share" data-parent="<%= folder.parentId %>">
-                      <i data-lucide="share-2"></i>
+                    <button class="dialog--share strip" command="show-modal" commandfor="dialog--share" data-id="<%=folder.id%>" data-type="folder" data-name="<%=folder.name%>" data-func="share" data-parent="<%= folder.parentId %>">
+                      <i data-lucide="share-2" class="icons"></i>
 
                     </button>
                   </div>
@@ -92,8 +101,10 @@
               <tr class="tr__row">
                 <td class="tr__item">
                   <% if (locals.shareUrl){%>
-                  <a href="/share/file/<%=shareUrl%>/<%=file.folderId%>/<%=file.id%>">
+                  <a href="/share/file/<%=shareUrl%>/<%=file.folderId%>/<%=file.id%>" class="row gap-1">
+                    <i class="icons" data-lucide="file"></i>
                     <%= file.name %>
+
                   </a>
                   <% }else{%>
                   <a href="/files/<%=file?.id%>">
@@ -109,7 +120,14 @@
                 </td>
 
                 <td class="tr__item">
-                  <%= file.createdAt.toLocaleDateString() %>
+                   <%= file.createdAt.toLocaleDateString("en-US",{
+                    month: "short",
+                    day: "numeric",
+                    year: "numeric",
+                    hour: "2-digit", 
+                    minute: "2-digit", 
+                    hour12: true,
+                  }) %>
 
 
                   %>
@@ -121,9 +139,17 @@
                 </td>
                 <td class="tr__item">
                   <div class="action__btns flex">
-                    <form action="/files/<%=file.id%>/delete" method="post"><button class="delete">delete</button></form>
+                    <form action="/files/<%=file.id%>/delete" method="post">
+                      <button class="delete strip">
+                        <i data-lucide="trash" class="icons"></i>
+                      </button>
+                    </form>
 
-                    <button class="dialog--update" command="show-modal" commandfor="dialog--update" data-id="<%=file.id%>" data-type="file" data-name="<%=file.name%>" data-parent="<%= file.folderId %>">Update</button>
+                    <button class="dialog--update" command="show-modal" commandfor="dialog--update" class="strip" data-id="<%=file.id%>" data-type="file" data-name="<%=file.name%>" data-parent="<%= file.folderId %>">
+                      <i data-lucide="save-plus" class="icons"></i>
+
+
+                    </button>
                   </div>
                 </td>
                 <%}%>

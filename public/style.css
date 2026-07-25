@@ -253,11 +253,15 @@ main {
 
 /* table */
 
+table {
+    /* table-layout: fixed; */
+    border-collapse: collapse;
+}
 
 .table {
     width: 100%;
 
-    border-spacing: 0;
+    /* border-spacing: 0; */
 }
 
 .th__row {
@@ -265,21 +269,24 @@ main {
 }
 
 th {
-    background-color: var(--t-header-clr);
+    background-color: var(--gray-100);
+    color: var(--gray-600);
+
+    text-transform: uppercase;
+
+    border: 1px solid var(--gray-200);
+    /* border-bottom: none;
+    border-left: none; */
 }
 
 th,
 td {
-    border: 1px solid;
-    border-bottom: none;
-    border-left: none;
-
-
+    padding: 0.75rem;
 }
 
-th,
 td {
-    padding: .5rem;
+    text-transform: capitalize;
+    border-bottom: 1px solid var(--gray-200);
 }
 
 /*  */
@@ -337,7 +344,7 @@ form {
     line-height: 1;
 }
 
-.form__description{
+.form__description {
     /* font-size: var(--font-size-1b); */
 }
 
@@ -347,27 +354,27 @@ form {
 
 }
 
-.form-group input{
-    padding:  0.5rem 0.75rem;
+.form-group input {
+    padding: 0.5rem 0.75rem;
     border-color: transparent;
     background-color: var(--gray-100);
     border-radius: var(--br-2);
     font: inherit;
 }
 
-.form-actions{
+.form-actions {
     margin-block-start: 1rem;
     display: grid;
 }
 
-.form-btn{
+.form-btn {
     background-color: var(--blue-900);
     color: var(--gray-50);
     border-radius: var(--br-3);
     width: 100%;
 }
 
-.form-footer{
+.form-footer {
     align-self: center;
 }
 
@@ -434,61 +441,70 @@ form {
 }
 
 /* icons */
-.icons{
+.icons {
     pointer-events: none;
 }
 
+table .icons{
+    color: var(--gray-400);
+}
 
 .icon--warning:hover {
     color: red;
 }
 
 .dialog--share {
-    color: var(--blue-600);
+    /* color: var(--blue-600); */
 
 
 }
+
 /* dialog */
 
-dialog{
+dialog {
     position: relative;
     padding: 0;
     border-color: transparent;
     border-radius: var(--br-2);
 
 }
-.dialog-container{
+
+.dialog-container {
     display: grid;
     gap: 1rem;
     padding: 1.5rem;
 }
-.dialog__info{
+
+.dialog__info {
     display: grid;
-    
+
 }
-.dialog__title{
+
+.dialog__title {
     font-size: var(--font-size-4);
 }
 
-.dialog__description{
+.dialog__description {
     font-size: var(--font-size-1);
 }
-.dialog__actions{
+
+.dialog__actions {
     position: absolute;
     right: 0;
     top: 0;
 }
 
 
-dialog .notice{
+dialog .notice {
     font-size: var(--font-size-1b);
 }
 
-#uploaded_file{
+#uploaded_file {
     background: none;
     padding-block: 1.5rem;
 }
-.strip{
+
+.strip {
     transition: none;
     transform: none;
     padding: 0;
@@ -500,4 +516,3 @@ dialog .notice{
 .hide {
     display: none;
 }
-
