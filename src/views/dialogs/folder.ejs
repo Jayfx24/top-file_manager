@@ -1,14 +1,25 @@
-<dialog id="folder-dialog">
-  <p>This dialog was opened using an invoker command.</p>
-
-  <form action="/folders/<%=locals.parentId || '0'%>/new" method="post">
-    <div class="form-group">
-      <label for="folder">Enter folder name:</label>
-      <input type="text" name="folder" id="folder">
+<dialog id="folder-dialog" closedby="any">
+  <div class="dialog-container">
+    <div class="dialog__info">
+      <h1 class="dialog__title">Create a New Folder</h1>
+      <p class="dialog-description">Organize your files and keep everything neatly in one place.</p>
     </div>
-    <button type="submit">Create</button>
-    <button commandfor="folder-dialog" command="close">Close</button>
-
-  </form>
+    <form action="/folders/<%=locals.parentId || '0'%>/new" method="post">
+      <div class="form-group">
+        <label for="folder">Enter folder name:</label>
+        <input type="text" name="folder" id="folder">
+      </div>
+      <div class="form__actions">
+        <button type="submit" class="form-btn">Create</button>
+        </button>
+      </div>
+    </form>
+    <div class="dialog__actions">
+      <button type="button" commandfor="folder-dialog" command="close" class="strip icon--warning">
+        <i class="icons " data-lucide="x">
+        </i>
+      </button>
+    </div>
+  </div>
 
 </dialog>

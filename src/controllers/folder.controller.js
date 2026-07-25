@@ -19,7 +19,7 @@ export async function createFolder(req, res) {
     },
   });
   return parentId === 0
-    ? res.redirect(`dashboard`)
+    ? res.redirect("/dashboard")
     : res.redirect(`/folders/${parentId}`);
 }
 

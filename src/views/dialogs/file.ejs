@@ -1,20 +1,29 @@
-<dialog id="file-dialog">
-    <p>This dialog was opened using an invoker command.</p>
+<dialog id="file-dialog" closedby="any">
 
+  <div class="dialog-container">
+    <div class="dialog__info">
+      <h1 class="dialog__title">Upload a File</h1>
+      <p class="dialog-description">Add files to your workspace and access them whenever you need.</p>
+
+     
+    </div>
     <form action="/files/<%=locals.parentId || '0'%>/upload" method="post" enctype="multipart/form-data">
-        <div class="form-group">
-            <label for="uploaded_file">Enter file name:</label>
-            <input type="file" name="uploaded_file" id="uploaded_file"
-                accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf">
-            <p class="notice">
-                Accept file types are: <span class="">.xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf</span>
-            </p>
-
-        </div>
-        <button type="submit">Upload</button>
-        <button type="button" commandfor="file-dialog" command="close">Close</button>
-
+      <div class="form-group">
+        <label for="uploaded_file">Enter file name:</label>
+        <input type="file" name="uploaded_file" id="uploaded_file" accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf">
+        
+      </div>
+       <p class="notice">
+          Accepted file types are: <span class="">.xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf</span>
+        </p>
+      <button type="submit" class="form-btn">Upload</button>
     </form>
-
+    <div class="dialog__actions">
+      <button type="button" commandfor="file-dialog" command="close" class="strip icon--warning">
+        <i class="icons " data-lucide="x">
+        </i>
+      </button>
+    </div>
+  </div>
 
 </dialog>
