@@ -2,6 +2,7 @@ import { prisma } from "../lib/prisma.js";
 import { getSideMenuData } from "../service/sideMenu.service.js";
 import NotFoundError from "../errors/NotFound.error.js";
 import UnauthorizedError from "../errors/Unauthorized.error.js";
+import { formatBytes } from "../utils.js";
 
 export async function createFolder(req, res) {
   if (req.session.validateErrors) {
@@ -44,6 +45,7 @@ export async function contentGet(req, res) {
     title: "Content",
     parentId: id,
     ...sideMenu,
+    formatBytes
   });
 }
 

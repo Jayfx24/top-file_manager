@@ -180,6 +180,7 @@ main {
     min-height: calc(100dvh - 80px);
 }
 
+
 .row {
     display: flex;
 }
@@ -441,16 +442,31 @@ form {
 }
 
 /* icons */
-.icons {
-    pointer-events: none;
-}
 
-table .icons{
+.icon {
+
     color: var(--gray-400);
 }
 
-.icon--warning:hover {
-    color: red;
+.icon svg {
+    pointer-events: none;
+}
+
+
+
+.icon--update:hover {
+    color: var(--gray-600);
+    color: green;
+}
+
+.icon--delete:hover {
+    color: var(--red-500);
+
+}
+
+.icon--share:hover {
+    color: var(--blue-700);
+
 }
 
 .dialog--share {
@@ -459,6 +475,59 @@ table .icons{
 
 }
 
+/* file */
+
+.content--file {
+    padding: 2rem;
+
+}
+
+.file__name {
+    font-size: var(--font-size-4);
+    text-transform: capitalize;
+}
+
+.info__list {
+    display: grid;
+    align-content: start;
+    gap: .05rem;
+    text-transform: capitalize;
+    margin-block: 1rem 2rem;
+
+
+}
+
+.info__item {
+    display: grid;
+    grid-template-columns: auto auto;
+    /* gap: 0.5rem; */
+}
+
+.info__item>* {
+    border: 1px solid var(--gray-200);
+    padding: 0.5rem;
+}
+
+.info__item>*:last-child {
+    border-left: none;
+}
+
+.viewer-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    gap: 1rem
+}
+
+.file__image {
+    max-width: 60rem;
+}
+
+.view__image{
+    object-fit: contain;
+    border-radius: var(--br-3);
+}
 /* dialog */
 
 dialog {
@@ -502,6 +571,22 @@ dialog .notice {
 #uploaded_file {
     background: none;
     padding-block: 1.5rem;
+}
+
+/* breadcrumbs */
+
+.breadcrumbs {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-block-end: 1rem;
+    padding: 1rem 2rem;
+    font-size: var(--font-size-2);
+    text-transform: capitalize;
+    background: var(--gray-200);
+    border-radius: var(--br-3);
+    /* background: var(--gray-100); */
 }
 
 .strip {

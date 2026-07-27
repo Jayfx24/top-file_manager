@@ -2,6 +2,8 @@ import { prisma } from "../lib/prisma.js";
 import { matchedData } from "express-validator";
 import { genPwd } from "../lib/passwordUtils.js";
 import { getSideMenuData } from "../service/sideMenu.service.js";
+import { formatBytes } from "../utils.js";
+
 import path from "node:path";
 
 export function login(req, res) {
@@ -55,6 +57,7 @@ export async function dashboard(req, res) {
     errors,
     ...sideMenu,
     parentId: 0,
+    formatBytes
   });
 }
 

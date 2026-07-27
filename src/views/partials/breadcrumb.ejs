@@ -1,10 +1,12 @@
-<div class="breadcrumbs">
+<div class="breadcrumbs ">
   <% locals?.breadcrumbs?.forEach((item, index) =>{ %>
   <a href="<%=item.base%>/<%=item.id%>" class="crumbs <%= locals.currentPage.base === item.base &&  currentPage.path  === item.id ?'crumbs--active': ''%>">
     <%=item.label%>
   </a>
   <% if (index < breadcrumbs.length - 1){ %>
-  <span>=></span>
+  <span class="icon">
+    <i data-lucide="chevron-right"></i>
+  </span>
   <% }  %>
   <%})%>
 </div>

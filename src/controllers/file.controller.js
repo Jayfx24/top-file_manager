@@ -1,6 +1,8 @@
 import UnauthorizedError from "../errors/Unauthorized.error.js";
 import NotfoundError from "../errors/NotFound.error.js";
 import { prisma } from "../lib/prisma.js";
+import { formatBytes } from "../utils.js";
+
 export async function uploadFile(req, res) {
   const parentId = Number(req.params?.parentId) || 0;
   const file = req.file;
@@ -37,7 +39,10 @@ export async function getFile(req, res) {
   if (!file) return new NotfoundError("File not found");
 
   console.log(file);
-  res.render("file", { title: "FIle name", file });
+  const downloadRoutes = file.url.replace("/", "");
+  console.log(downloadRoutes);
+  
+  res.render("file", { title: "FIle name", file, formatBytes });
 }
 
 export async function postFileDelete(req, res) {

@@ -43,17 +43,4 @@ const populateDialog = (event) => {
 folders.addEventListener("click", collapse);
 tableDialogs.addEventListener("click", populateDialog);
 
-// const displayFile = (fileType, url) => {
-//   switch (fileType) {
-//     case "pdf":
-//       return <iframe className="" src={url} width="100%"></iframe>;
-//       break;
 
-//     case "text":
-//       return <pre className="" src={url} width="100%"></pre>;
-//       break;
-
-//     default:
-//       return <img src=""></img>;
-//   }
-// };

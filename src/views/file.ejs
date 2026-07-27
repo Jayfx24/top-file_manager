@@ -9,17 +9,22 @@
       <div class="content">
         <div class="content--file">
           <div class="file__texts">
-            <h1 class="file__name">
-              <%= file.name%>
-            </h1>
-            <span class="info">
-              <p>file name</p> <a href="/share/files/<%=file.id%>"> Share</a>
-            </span>
+            <div>
+              <h1 class="file__name">
+                <%= file.name%>
+              </h1>
+
+
+
+              <a href="file://<%= file.url+'/'+ file.originalName %>" target="_blank">Download</a>
+
+            </div>
+
             <div class="file__info">
               <ul class="info__list">
                 <li class="info__item">
                   <span class="info">size</span>
-                  <span class="info__value"> <%= file.size %>Bytes</span>
+                  <span class="info__value"> <%= formatBytes(file.size) %></span>
                 </li>
                 <li class="info__item">
                   <span class="info">type</span>
@@ -39,7 +44,9 @@
           </div>
           <div class="viewer-container">
             <% if (file.mimetype.split("/")[0] === "image") {%>
-                <div class="image-container"><img class="view__image" src="/uploads/<%=file.originalName%>" alt="<%=file.name%>">
+                <h2 class="file__preview">Preview</h2>
+                <div class="file__image">
+                  <img class="view__image" src="/uploads/<%=file.originalName%>" alt="<%=file.name%>">
                 </div>
 
                 <%}%>
@@ -50,6 +57,5 @@
       </div>
     </section>
   </main>
-  <%- include("./partials/header.ejs") %>
 </body></span>
 </p>
