@@ -89,3 +89,4 @@ export async function updateFile(req, res) {
 
   res.redirect(`/folders/${parentId}`);
 }
+

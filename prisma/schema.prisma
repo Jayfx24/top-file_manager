@@ -31,26 +31,27 @@ model Folder {
   author    User      @relation(fields: [authorId], references: [id])
   files     File[]
   lastSeen  DateTime?
+  shared    Shared[]
 
   @@unique([name, authorId])
   @@map("folders")
 }
 
 model File {
-  id        Int       @id @default(autoincrement())
-  authorId  Int
-  name      String
-  originalName      String
-  size      Int
-  url       String
-  encoding  String
-  mimetype  String
-  createdAt DateTime  @default(now())
-  updatedAt DateTime? @updatedAt
-  folder    Folder    @relation(fields: [folderId], references: [id])
-  folderId  Int
-  lastSeen  DateTime?
-  author    User      @relation(fields: [authorId], references: [id])
+  id           Int       @id @default(autoincrement())
+  authorId     Int
+  name         String
+  originalName String
+  size         Int
+  url          String
+  encoding     String
+  mimetype     String
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime? @updatedAt
+  folder       Folder    @relation(fields: [folderId], references: [id])
+  folderId     Int
+  lastSeen     DateTime?
+  author       User      @relation(fields: [authorId], references: [id])
 
   @@unique([name, folderId])
   @@map("files")
@@ -61,7 +62,7 @@ model Shared {
   authorId     Int
   itemId       Int
   size         Int?
-  generatedUrl String   @unique
+  generatedUrl String    @unique
   createdAt    DateTime  @default(now())
   isActive     Boolean
   endDate      DateTime
@@ -69,6 +70,7 @@ model Shared {
   lastSeen     DateTime?
   viewsCount   Int       @default(0)
   author       User      @relation(fields: [authorId], references: [id])
+  folders      Folder    @relation(fields: [itemId], references: [id])
 
   @@id([generatedUrl])
   @@map("shared")
@@ -81,8 +83,7 @@ model Session {
   expiresAt DateTime
 }
 
-
-enum FileType{
+enum FileType {
   folder
   file
 }

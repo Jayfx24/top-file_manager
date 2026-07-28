@@ -36,7 +36,6 @@ export async function getSharedFolder(generatedUrl) {
       generatedUrl: generatedUrl,
     },
   });
-  console.log(shared);
   const anchorFolders = await prisma.folder.findMany({
     where: {
       id: shared.itemId,

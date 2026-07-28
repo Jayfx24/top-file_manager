@@ -3,6 +3,7 @@ import {
   uploadFile,
   getFile,
   postFileDelete,
+  download
 } from "../controllers/file.controller.js";
 import upload from "../middleware/upload.middleware.js";
 import { updateSchema } from "../validator/update.schema.js";
@@ -17,6 +18,7 @@ fileRouter.post(
   upload.single("uploaded_file"),
   uploadFile
 );
+fileRouter.get("/:id/download", isAuth,download);
 fileRouter.post("/:id/delete", isAuth, postFileDelete);
 
 fileRouter.get("/:id", isAuth, getBreadcrumbs, getFile);

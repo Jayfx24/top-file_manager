@@ -2,6 +2,7 @@ import UnauthorizedError from "../errors/Unauthorized.error.js";
 import NotfoundError from "../errors/NotFound.error.js";
 import { prisma } from "../lib/prisma.js";
 import { formatBytes } from "../utils.js";
+import path from "path";
 
 export async function uploadFile(req, res) {
   const parentId = Number(req.params?.parentId) || 0;
@@ -38,10 +39,6 @@ export async function getFile(req, res) {
   console.log(req.path, req.baseUrl);
   if (!file) return new NotfoundError("File not found");
 
-  console.log(file);
-  const downloadRoutes = file.url.replace("/", "");
-  console.log(downloadRoutes);
-  
   res.render("file", { title: "FIle name", file, formatBytes });
 }
 
@@ -69,4 +66,32 @@ export async function postFileDelete(req, res) {
   });
 
   return res.redirect(req.get("Referrer") || "/");
+}
+
+export async function download(req, res, next) {
+  const id = Number(req.params.id);
+  const authorId = Number(req.user.id);
+
+  try{
+    const file = await prisma.file.findUnique({
+      where: {
+        authorId,
+        id,
+      },
+    });
+    if (!file) return new NotfoundError("File not found");
+  
+    const filePath = path.join(file.url,file.originalName)
+   
+    res.download( filePath, file.name, (err) => {
+      if (err ) {
+        throw new NotfoundError("file not found")
+      } 
+    });
+
+  }catch(err){
+    next(err)
+    console.log(err)
+  }
+
 }

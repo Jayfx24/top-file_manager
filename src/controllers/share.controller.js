@@ -1,12 +1,16 @@
+import NotFoundError from "../errors/NotFound.error.js";
+import UnauthorizedError from "../errors/Unauthorized.error.js";
 import { prisma } from "../lib/prisma.js";
 import { getSharedFolder } from "../service/sideMenu.service.js";
+import { formatBytes } from "../utils.js";
+import path from "path";
 
 export async function postShareFolder(req, res, next) {
   if (req.session.validateErrors) {
     return res.redirect("/dashboard");
   }
   const { shareId, endDateDelta } = req.body;
-  console.log(req.body)
+  console.log(req.body);
   const date = new Date();
   const generatedUrl = crypto.randomUUID();
   date.setDate(date.getDate() + endDateDelta);
@@ -18,8 +22,8 @@ export async function postShareFolder(req, res, next) {
     endDate: date,
     type: "folder",
   };
-  console.log('Supposed prisma data :')
-  console.log( data)
+  console.log("Supposed prisma data :");
+  console.log(data);
   await prisma.shared.create({
     data,
   });
@@ -66,6 +70,7 @@ export async function getSharedDashboard(req, res, next) {
     parentId: Number(folderId),
     ...data,
     shareUrl,
+    formatBytes,
   });
 }
 
@@ -83,7 +88,7 @@ export async function getSharedFile(req, res) {
 
   if (req.isAuthenticated()) res.locals.currentUser = req.user.id;
   console.log("current user", res.locals.currentUser);
-  res.render("file", { title: "FIle name", file });
+  res.render("file", { title: "FIle name", file, formatBytes, shareUrl });
 }
 
 export async function deactivateShared(req, res) {
@@ -101,3 +106,63 @@ export async function deactivateShared(req, res) {
   return res.redirect("share/list");
 }
 // for shared folder only need to keep its folder id
+
+export async function download(req, res, next) {
+  const { shareUrl, folderId, id } = req.params;
+
+  try {
+    const shareResource = await prisma.shared.findUnique({
+      where: {
+        generatedUrl: shareUrl,
+      },
+    });
+
+    // const x = await prisma.shared.findUnique({
+    //   where: {
+    //     generatedUrl: shareUrl,
+    //   },
+    //   include: {
+    //     folders: {
+    //       include: {
+    //         files: {
+    //           where: {
+    //             id: Number(id)
+    //           }
+    //         },
+    //       },
+    //     },
+    //   },
+    // });
+
+    // console.log("new prisma: ", x);
+    if (!shareResource) throw new NotFoundError(" Share link not found");
+    if (!shareResource.isActive)
+      throw new UnauthorizedError(
+        "You are not authorized to perform this action. Permission link has expired"
+      );
+
+    const file = await prisma.file.findUnique({
+      where: {
+        id: Number(id),
+      },
+    });
+
+    if (!file) throw new NotfoundError("File not found");
+    if (shareResource.authorId !== file.authorId) {
+      throw new UnauthorizedError(
+        "You are not authorized to view this resource"
+      );
+    }
+
+    const filePath = path.join(file.url, file.originalName);
+
+    res.download(filePath, file.name, (err) => {
+      if (err) {
+        next(new NotfoundError("file not found"));
+      }
+    });
+  } catch (err) {
+    next(err);
+    console.log(err);
+  }
+}
