@@ -1,6 +1,7 @@
 import NotFoundError from "../errors/NotFound.error.js";
 import UnauthorizedError from "../errors/Unauthorized.error.js";
 import { prisma } from "../lib/prisma.js";
+import { differenceInDays } from "date-fns";
 import { getSharedFolder } from "../service/sideMenu.service.js";
 import { formatBytes } from "../utils.js";
 import path from "path";
@@ -50,18 +51,39 @@ export async function getList(req, res, next) {
     "/" +
     folderId;
 
+  const updateShared = await prisma.shared.updateMany({
+    where: {
+      endDate: {
+        lt: new Date(),
+      },
+    },
+    data: {
+      isActive: false,
+    },
+  });
   const userSharedData = await prisma.shared.findMany({
     where: {
       authorId: req.user.id,
       isActive: true,
     },
+    include: {
+      folders: true,
+    },
   });
 
-  return res.render("shared", { userSharedData });
+  userSharedData.forEach((folder) => {
+    if (folder.endDate > new Date()) {
+      folder.isActive = true;
+    }
+  });
+  console.log(userSharedData);
+  return res.render("shared", { userSharedData , differenceInDays});
 }
 
 export async function getSharedDashboard(req, res, next) {
   const { shareUrl, folderId } = req.params;
+
+ 
   const data = await getSharedFolder(shareUrl);
 
   if (req.isAuthenticated()) res.locals.currentUser = req.user.id;

@@ -137,6 +137,12 @@ a {
     text-decoration: none;
 
 }
+p {
+  text-wrap: pretty;
+}
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+}
 
 a:hover {
     text-decoration: underline;
@@ -573,6 +579,21 @@ dialog .notice {
     padding-block: 1.5rem;
 }
 
+
+/* shared */
+.shared__texts{
+    /* display: grid; */
+    margin-bottom: 2rem;
+}
+
+.title{
+    font-size: var(--font-size-5);
+    line-height: 1.5;
+}
+
+.description{
+    max-width: 85ch;
+}
 /* breadcrumbs */
 
 .breadcrumbs {

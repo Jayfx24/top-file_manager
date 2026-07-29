@@ -8,18 +8,20 @@
     <section class="container">
       <div class="content">
         <div class="shared__content">
-
+          <div class="shared__texts">
+            <h1 class="title">Control access to your shared folder.</h1>
+            <p class="description">Manage who can view and collaborate on your folder. Update existing permissions, or remove access whenever needed</p>
+          </div>
           <% if (locals.userSharedData) {%>
           <table class="shared__table">
             <thead class="t__header">
               <tr class="th__row">
-                <th class="th__item">Item name</th>
-                <th class="th__item">Full Url</th>
-                <th class="th__item">Shared date</th>
-                <th class="th__item">Time left</th>
-                <th class="th__item">views</th>
-                <th class="th__item">last viewed</th>
-                <th class="th__item">actions</th>
+                <th class="th__item">Folder </th>
+                <th class="th__item">Share link</th>
+                <th class="th__item">Share on</th>
+                <th class="th__item">Expires in</th>
+                <th class="th__item">Views</th>
+                <th class="th__item">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -27,7 +29,7 @@
               <tr class="t-row">
                 <td class="t__item">
                   <p>
-                    <%= item.name %>
+                    <%= item.folders.name %>
                   </p>
                 </td>
 
@@ -47,7 +49,7 @@
 
                 <td class="t__item">
                   <p>
-                    <%= item.endDate.toLocaleDateString() %>
+                    <%= differenceInDays(item.endDate, new Date()) %> days
                   </p>
                 </td>
 
@@ -59,11 +61,11 @@
                 </td>
 
 
-                <td class="t__item">
+                <!-- <td class="t__item">
                   <p>
                     <%= item?.lastSeen?.toLocaleDateString() || 'null' %>
                   </p>
-                </td>
+                </td> -->
 
                 <td class="t__item">
                   <form action="/share/<%= item.generatedUrl %>/deactivate" method="post">
@@ -78,6 +80,8 @@
 
             </tbody>
           </table>
+          <%}else{%>
+            <!-- <h2 class="">No active share link</h2> -->
           <%}%>
         </div>
       </div>
