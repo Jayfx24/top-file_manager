@@ -2,7 +2,7 @@ import NotFoundError from "../errors/NotFound.error.js";
 import UnauthorizedError from "../errors/Unauthorized.error.js";
 import { prisma } from "../lib/prisma.js";
 import { differenceInDays } from "date-fns";
-import { getSharedFolder } from "../service/sideMenu.service.js";
+import { getSharedFolder } from "../service/service.js";
 import { formatBytes } from "../utils.js";
 import path from "path";
 
@@ -11,7 +11,7 @@ export async function postShareFolder(req, res, next) {
     return res.redirect("/dashboard");
   }
   const { shareId, endDateDelta } = req.body;
-  console.log(req.body);
+
   const date = new Date();
   const generatedUrl = crypto.randomUUID();
   date.setDate(date.getDate() + endDateDelta);
@@ -23,8 +23,7 @@ export async function postShareFolder(req, res, next) {
     endDate: date,
     type: "folder",
   };
-  console.log("Supposed prisma data :");
-  console.log(data);
+
   await prisma.shared.create({
     data,
   });
@@ -35,13 +34,12 @@ export async function postShareFolder(req, res, next) {
 }
 
 export async function postShareFile(req, res, next) {
-  console.log("this should share the file");
   next();
 }
 
 export async function getList(req, res, next) {
   // generate all children of the folder
-  console.log("this should show the share info page");
+
   res.locals.fullUrl = (folderId, url) =>
     req.protocol +
     "://" +
@@ -64,7 +62,10 @@ export async function getList(req, res, next) {
   const userSharedData = await prisma.shared.findMany({
     where: {
       authorId: req.user.id,
-      isActive: true,
+      // isActive: true,
+    },
+    orderBy: {
+      createdAt: "desc",
     },
     include: {
       folders: true,
@@ -76,17 +77,17 @@ export async function getList(req, res, next) {
       folder.isActive = true;
     }
   });
-  console.log(userSharedData);
-  return res.render("shared", { userSharedData , differenceInDays});
+
+  return res.render("shared", { userSharedData, differenceInDays });
 }
 
 export async function getSharedDashboard(req, res, next) {
   const { shareUrl, folderId } = req.params;
 
- 
   const data = await getSharedFolder(shareUrl);
 
   if (req.isAuthenticated()) res.locals.currentUser = req.user.id;
+
   return res.render("dashboard", {
     title: "Content",
     parentId: Number(folderId),
@@ -109,7 +110,7 @@ export async function getSharedFile(req, res) {
   if (!file) throw new NotfoundError("File not found");
 
   if (req.isAuthenticated()) res.locals.currentUser = req.user.id;
-  console.log("current user", res.locals.currentUser);
+
   res.render("file", { title: "FIle name", file, formatBytes, shareUrl });
 }
 
@@ -139,24 +140,6 @@ export async function download(req, res, next) {
       },
     });
 
-    // const x = await prisma.shared.findUnique({
-    //   where: {
-    //     generatedUrl: shareUrl,
-    //   },
-    //   include: {
-    //     folders: {
-    //       include: {
-    //         files: {
-    //           where: {
-    //             id: Number(id)
-    //           }
-    //         },
-    //       },
-    //     },
-    //   },
-    // });
-
-    // console.log("new prisma: ", x);
     if (!shareResource) throw new NotFoundError(" Share link not found");
     if (!shareResource.isActive)
       throw new UnauthorizedError(

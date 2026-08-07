@@ -10,7 +10,6 @@ export const authSchema = Joi.object({
   pwd: Joi.string()
     .trim()
     .pattern(new RegExp("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$"))
-
     .message(errMsg.pwd)
     .required(),
 });
@@ -26,7 +25,3 @@ export const registerSchema = authSchema.append({
     })
     .required(),
 });
-
-// export const loginSchema = authSchema.append({
-  
-// })

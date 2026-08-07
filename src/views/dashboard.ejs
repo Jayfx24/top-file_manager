@@ -20,7 +20,7 @@
           <%}%>
 
           
-          <% if (locals.folders){%>
+          <% if (locals.folders.length > 1){%>
           <table class="table ">
             <thead class="table_header">
               <tr class="th__row">
@@ -71,7 +71,7 @@
                 <td class="tr__item">
                   <%= folder.lastSeen %>
                 </td>
-                <td class="tr__item row gap-2">
+                <td class="tr__item ">
                   <div class="action__btns flex gap-2">
                     <button class="dialog--update  strip icon icon--update" command="show-modal" commandfor="dialog--update" data-id="<%=folder.id%>" data-type="folder" data-name="<%=folder.name%>" data-parent="<%= folder.parentId %>">
                       <i data-lucide="save-plus" class=""></i>
@@ -166,7 +166,7 @@
                                                 </tbody>
                                     </table>
                                     <%}%>
-
+                
         </div>
       </div>
 

@@ -21,7 +21,7 @@ const session = expressSession({
     maxAge: 3 * 24 * 60 * 60 * 1000,
   },
   secret: process.env.SECRET,
-  resave: true,
+  resave: false,
   saveUninitialized: false,
   store: new PrismaSessionStore(prisma, {
     checkPeriod: 15 * 60 * 1000, //ms
@@ -43,7 +43,6 @@ app.use(passport.session());
 app.use((req, res, next) => {
   res.locals.authenticated = req.isAuthenticated();
   res.locals.currentUser = req.user;
-  console.log(req.isAuthenticated(), req.user);
   next();
 });
 

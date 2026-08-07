@@ -10,13 +10,12 @@ import {
 import { isAuth } from "../middleware/auth.middleware.js";
 import { router as userRouter } from "./user.router.js";
 import { validateRequest } from "../middleware/validateRequest.js";
-import { registerSchema } from "../validator/schema.js";
-import { updateSchema } from "../validator/update.schema.js";
+import { registerSchema } from "../schemas/authSchema.js";
+import { updateSchema } from "../schemas/update.schema.js";
 import folderRouter from "./folder.router.js";
 import fileRouter from "./file.router.js";
 import shareRouter from "./share.router.js";
 import passport from "passport";
-
 
 const router = Router();
 // if user is authenticated redirect to dashboard

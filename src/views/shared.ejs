@@ -21,6 +21,8 @@
                 <th class="th__item">Share on</th>
                 <th class="th__item">Expires in</th>
                 <th class="th__item">Views</th>
+                <th class="th__item">Status</th>
+                
                 <th class="th__item">Actions</th>
               </tr>
             </thead>
@@ -49,28 +51,31 @@
 
                 <td class="t__item">
                   <p>
-                    <%= differenceInDays(item.endDate, new Date()) %> days
+                    <%= differenceInDays(item.endDate, new Date()) < 1 ? '-': differenceInDays(item.endDate, new Date()) + ' days' %> 
                   </p>
                 </td>
 
 
                 <td class="t__item">
                   <p>
-                    <%= item.viewCount %>
+                    <%= item.viewsCount  %>
                   </p>
                 </td>
 
 
-                <!-- <td class="t__item">
+                <td class="t__item">
                   <p>
-                    <%= item?.lastSeen?.toLocaleDateString() || 'null' %>
+                    <%= item.isActive %>
                   </p>
-                </td> -->
+                </td>
 
                 <td class="t__item">
-                  <form action="/share/<%= item.generatedUrl %>/deactivate" method="post">
-                    <button type="submit">Deactivate</button>
-                  </form>
+                  <% if (item.isActive){ %>
+                    <form action="/share/<%= item.generatedUrl %>/deactivate" method="post">
+                      <button type="submit">Deactivate</button>
+                    </form>
+
+                  <%}%>
                 </td>
               </tr>
               <%})%>

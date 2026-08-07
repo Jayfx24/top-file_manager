@@ -3,10 +3,10 @@ import {
   uploadFile,
   getFile,
   postFileDelete,
-  download
+  download,
 } from "../controllers/file.controller.js";
 import upload from "../middleware/upload.middleware.js";
-import { updateSchema } from "../validator/update.schema.js";
+import { updateSchema } from "../schemas/update.schema.js";
 import { validateRequest } from "../middleware/validateRequest.js";
 import getBreadcrumbs from "../middleware/breadcrumbs.js";
 import { isAuth } from "../middleware/auth.middleware.js";
@@ -18,7 +18,7 @@ fileRouter.post(
   upload.single("uploaded_file"),
   uploadFile
 );
-fileRouter.get("/:id/download", isAuth,download);
+fileRouter.get("/:id/download", isAuth, download);
 fileRouter.post("/:id/delete", isAuth, postFileDelete);
 
 fileRouter.get("/:id", isAuth, getBreadcrumbs, getFile);

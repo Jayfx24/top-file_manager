@@ -36,10 +36,25 @@ export async function getSharedFolder(generatedUrl) {
       generatedUrl: generatedUrl,
     },
   });
+
+  const views = await prisma.shared.update({
+    where: {
+      generatedUrl: generatedUrl,
+    },
+    data: {
+      viewsCount: {
+        increment: 1,
+      },
+    },
+  });
+
+  console.log("viewCount should increase", views);
+
   const anchorFolders = await prisma.folder.findMany({
     where: {
       id: shared.itemId,
     },
+   
   });
   console.log(anchorFolders);
 

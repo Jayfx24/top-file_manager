@@ -1,5 +1,5 @@
 import { prisma } from "../lib/prisma.js";
-import { getSideMenuData } from "../service/sideMenu.service.js";
+import { getSideMenuData } from "../service/service.js";
 import NotFoundError from "../errors/NotFound.error.js";
 import UnauthorizedError from "../errors/Unauthorized.error.js";
 import { formatBytes } from "../utils.js";
@@ -40,12 +40,13 @@ export async function contentGet(req, res) {
   console.log(req.path, req.baseUrl);
 
   console.log("Breadcrumbs");
+  console.log(sideMenu.folders)
 
   return res.render("dashboard", {
     title: "Content",
     parentId: id,
     ...sideMenu,
-    formatBytes
+    formatBytes,
   });
 }
 
