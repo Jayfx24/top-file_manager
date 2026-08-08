@@ -1,5 +1,9 @@
 <div class="breadcrumbs ">
-  <% locals?.breadcrumbs?.forEach((item, index) =>{ %>
+<% if (locals.breadcrumbs.length === 1){%>
+  <button onclick="history.back()">Back</button>
+
+<%}else{%>
+  <% locals.breadcrumbs?.forEach((item, index) =>{ %>
   <a href="<%=item.base%>/<%=item.id%>" class="crumbs <%= locals.currentPage.base === item.base &&  currentPage.path  === item.id ?'crumbs--active': ''%>">
     <%=item.label%>
   </a>
@@ -9,4 +13,6 @@
   </span>
   <% }  %>
   <%})%>
+  <%}%>
+
 </div>

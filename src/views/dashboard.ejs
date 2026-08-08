@@ -8,7 +8,7 @@
   <main>
 
     <section class="container">
-
+      <div class="open-menu"><button onclick="openNav()">Tree</button></div>
       <div class="content flex gap">
         <%- include("./partials/sideMenu.ejs") %>
 
@@ -166,7 +166,7 @@
                                                 </tbody>
                                     </table>
                                     <%}%>
-                
+
         </div>
       </div>
 
@@ -175,6 +175,26 @@
   </main>
 
   <%- include("./partials/footer.ejs") %>
+  <script>
+    const openNav = () => {
+
+      const sideMenu = document.getElementById("sideMenu")
+      const openMenu = document.querySelector(".open-menu")
+      sideMenu.classList.add("show")
+      openMenu.classList.add("hide")
+
+    };
+    const closeNav = () => {
+
+      const sideMenu = document.getElementById("sideMenu")
+      const openMenu = document.querySelector(".open-menu")
+
+      sideMenu.classList.remove("show")
+      openMenu.classList.remove("hide")
+
+
+    }
+  </script>
 </body>
 
 </html>

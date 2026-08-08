@@ -40,7 +40,16 @@ const populateDialog = (event) => {
   document.querySelector("#fileType").value = target.dataset.type;
 };
 
+const openNav = () => {
+
+
+  // sideMenu.style.display= "block"
+  // sideMenu.style.width = '100%';
+
+};
+
+const closeNav = () => {
+  document.getElementById("sideMenu").style.width = '100%';
+};
 folders.addEventListener("click", collapse);
 tableDialogs.addEventListener("click", populateDialog);
-
-

@@ -20,6 +20,7 @@ export default async function getBreadcrumbs(req, res, next) {
     },
   });
   res.locals.breadcrumbs = reversedWalk(data, groupData);
-  console.log(res.locals.breadcrumbs);
+  
+  console.log(res.locals.breadcrumbs.length);
   next();
 }
