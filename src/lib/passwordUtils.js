@@ -2,7 +2,9 @@
 import bcrypt from "bcrypt";
 
 const genPwd = async (pwd) => {
-  return bcrypt.hash(pwd, 10);
+  const hashed =  bcrypt.hash(pwd, 10);
+  console.log(pwd, hashed)
+  return hashed;
 };
 
 const isValidPwd = async (pwd, userPwd) => {

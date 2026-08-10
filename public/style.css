@@ -6,7 +6,8 @@
 :root {
     --max-width: 1250px;
 
-    --t-header-clr: lightgrey;
+
+    
     /* CSS HSL */
     --gray-50: hsla(210, 17%, 98%, 1);
     --gray-100: hsla(210, 16%, 93%, 1);
@@ -52,19 +53,9 @@
     --br-2: 8px;
     --br-3: 12px;
 
-    --h1: 2.986rem;
-    --h2: 2.488rem;
-    --h3: 2.074rem;
-    --h4: 1.728rem;
-    --h5: 1.44rem;
-    --h6: 1.2rem;
-    --p: 1rem;
-    --small: 0.833rem;
-    --v-small: 0.694rem;
 
-    --font-size-2b: 0.6875rem;
+    /* f-s */
     --font-size-1b: 0.8125rem;
-
     /* the base */
     --font-size: 1rem;
 
@@ -87,6 +78,16 @@
     --letter-space-2: 0.0152em;
     --letter-space-3: 0.0085em;
 
+    /* clrs */
+    --color-primary : var(--blue-500);
+    --color-primary-hover: var(--gray-300);
+    --color-background : var(--gray-50);
+    --color-border : var(--gray-200);
+    --color-text : var(--gray-600);
+    --color-text-muted : var(--gray-200);
+    --color-danger: var(--red-500);
+    --color-success : var(--blue-600);
+    /* --color-a: none; */
 }
 
 
@@ -276,7 +277,7 @@ table {
 
 .table {
     width: 100%;
-
+    
     /* border-spacing: 0; */
 }
 
@@ -286,11 +287,12 @@ table {
 
 th {
     background-color: var(--gray-100);
+    /* background-color: var(--color-primary); */
     color: var(--gray-600);
 
     text-transform: uppercase;
 
-    border: 1px solid var(--gray-200);
+    border: 1px solid var(--gray-50);
     /* border-bottom: none;
     border-left: none; */
 }
@@ -303,6 +305,27 @@ td {
 
 td {
     border-bottom: 1px solid var(--gray-200);
+    /* background-color: var(--blue-700); */
+}
+
+td:focus-within{
+    border-bottom: 1px solid var(--blue-800);
+    
+
+}
+
+.tr__link:is(:hover,:focus-within,:focus-visible){
+    color: var(--gray-600);
+
+    & .icon{
+        color: currentColor;
+    }
+
+    & a{
+        text-decoration: none;
+        outline: none;
+        border: none;
+    }
 }
 
 /*  */
@@ -406,11 +429,16 @@ input {
 
 .side-menu {
     position: relative;
-    padding: 2rem 1rem;
-    width: 22rem;
+    padding: 2rem 1.5rem;
+    min-width: 20rem;
     /* background-color: var(--side-menu-clr); */
-    box-shadow: var(--shadow-sidebar);
+    /* box-shadow: var(--shadow-sidebar); */
     border-radius: 8px;
+    /* border: 1px solid var(--gray-100); */
+    box-shadow:
+0px 0px 0px 1px rgba(0, 0, 0, 0.06),
+0px 1px 2px -1px rgba(0, 0, 0, 0.06),
+0px 2px 4px 0px rgba(0, 0, 0, 0.04);
 
 }
 
@@ -438,10 +466,15 @@ input {
 .folder__list {
     display: grid;
     /* gap: 0.5rem; */
-    border-inline-start: 1px solid var(--gray-400);
+    border-inline-start: 1px solid var(--gray-100);
+    padding-inline-start: 1rem;
 
 }
 
+.anchor{
+    border-inline-start: 1px solid transparent;
+    padding: 0;
+}
 .folder__item {
     /* display: grid;
     gap: 0.25rem; */
@@ -469,25 +502,29 @@ input {
 .icon {
 
     color: var(--gray-400);
+   
 }
 
 .icon svg {
     pointer-events: none;
 }
 
+.icon:is(:hover,:focus-visible,:focus-within){
+    border: none;
+    outline: none;
+}
 
-
-.icon--update:hover {
+.icon--update:is(:hover,:focus-visible,:focus-within) {
     color: var(--gray-600);
     color: green;
 }
 
-.icon--delete:hover {
+.icon--delete:is(:hover,:focus-visible,:focus-within) {
     color: var(--red-500);
 
 }
 
-.icon--share:hover {
+.icon--share:is(:hover,:focus-visible,:focus-within) {
     color: var(--blue-700);
 
 }
@@ -669,11 +706,15 @@ dialog .notice {
 
 
 @media (max-width: 768px) {
+
+    h1,h2,h3{
+        line-height: 1.2;
+    }
     .container {
         padding: 0rem;
     }
 
-    .row {
+    form .row {
         flex-wrap: wrap;
     }
 
@@ -716,6 +757,10 @@ dialog .notice {
         width: 100%;
         z-index: 1;
         background-color: red;
+    }
+
+    .dialog__info{
+        gap:0.25rem
     }
 }
 

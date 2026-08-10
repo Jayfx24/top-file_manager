@@ -19,9 +19,6 @@ folderRouter.post(
   createFolder
 );
 folderRouter.get("/:id", isAuth, getBreadcrumbs, contentGet);
-// folderRouter.post("/share/:id", shareFolder);
-// folderRouter.get("/:folder/:file", viewFile);
 
-// router.get("/new", createFolderGet) ?? dialog
 
 export default folderRouter;

@@ -24,15 +24,24 @@ export async function registerPost(req, res, next) {
     });
   }
 
+  console.log(req.body);
+  const pwd = await genPwd(req.body.pwd);
   const user = await prisma.user.create({
     data: {
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       username: req.body.username,
-      pwd: genPwd(req.body.pwd),
+      pwd,
+      folders: {
+        create: [
+          {
+            name: req.body.firstName,
+          },
+        ],
+      },
     },
   });
-  return res.redirect("/");
+  return res.redirect("/dashboard");
 }
 
 export function logout(req, res) {
@@ -49,7 +58,7 @@ export async function dashboard(req, res) {
   delete req.session.validateErrors;
 
   const sideMenu = await getSideMenuData(req.user.id);
-  res.locals.currentUser = req.user.id;
+  res.locals.currentUser = req.user;
   // res.locals.breadcrumbs = [{ label: "Home", path: "/" }];
 
   return res.render("dashboard", {

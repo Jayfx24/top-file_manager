@@ -9,9 +9,20 @@ export async function createFolder(req, res) {
     return res.redirect("/dashboard");
   }
 
-  const parentId = Number(req.params?.parentId) || 0;
-  const data = req.body;
+  const parent = await prisma.folder.findFirst({
+    where: {
+      parentId: 0,
+      authorId: req.user.id,
+    },
+    select: {
+      id: true,
+    },
+  });
 
+  const parentId = Number(req.params?.parentId) || parent.id;
+
+  const data = req.body;
+  console.log(parentId);
   await prisma.folder.create({
     data: {
       name: data.folder.toLowerCase(),
@@ -40,7 +51,7 @@ export async function contentGet(req, res) {
   console.log(req.path, req.baseUrl);
 
   console.log("Breadcrumbs");
-  console.log(sideMenu.folders)
+  console.log(sideMenu.folders);
 
   return res.render("dashboard", {
     title: "Content",
