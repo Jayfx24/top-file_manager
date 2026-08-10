@@ -8,12 +8,13 @@
   <main>
 
     <section class="container">
-      <div class="open-menu"><button onclick="openNav()">Tree</button></div>
+      <div class="open-menu"><button onclick="openNav()"> <i data-lucide="plus" class=""></i>
+        </button></div>
       <div class="content flex gap">
         <%- include("./partials/sideMenu.ejs") %>
 
         <div class="main-content">
-         
+
           <!-- <p>This should show the the content of the projects | all</p> -->
           <% if (locals.breadcrumbs) {%>
 
@@ -29,7 +30,7 @@
                 <th class="th__item">size</th>
                 <th class="th__item">created</th>
                 <% if(locals.currentUser || !locals.shareUrl){%>
-                <th class="th__item">last opened</th>
+                
                 <th class="th__item">actions</th>
                 <%}%>
               </tr>
@@ -69,9 +70,7 @@
                 </td>
 
                 <% if(locals.currentUser.id === folder.authorId){%>
-                <td class="tr__item">
-                  <%= folder.lastSeen %>
-                </td>
+               
                 <td class="tr__item ">
                   <div class="action__btns flex gap-2">
                     <% if(folder.parentId !== 0){%>
@@ -82,11 +81,11 @@
                     <form action="/folders/<%=folder.id%>/delete" method="post">
                       <button class="delete strip icon--delete icon">
                         <i data-lucide="trash" class=""></i>
-   
+
                       </button>
                     </form>
-                 <% } %>
-                    
+                    <% } %>
+
                     <button class="dialog--share strip icon icon--share" command="show-modal" commandfor="dialog--share" data-id="<%=folder.id%>" data-type="folder" data-name="<%=folder.name%>" data-func="share" data-parent="<%= folder.parentId %>">
                       <i data-lucide="share-2" class=""></i>
 
@@ -140,9 +139,7 @@
                 </td>
 
                 <% if(locals.currentUser === file.authorId){%>
-                <td class="tr__item">
-                  <%= file.lastSeen %>
-                </td>
+                
                 <td class="tr__item ">
                   <div class="action__btns row gap-2">
                     <form action="/files/<%=file.id%>/delete" method="post">

@@ -661,9 +661,11 @@ dialog .notice {
     border: 1px solid;
     width: auto;
     height: 50px;
-    border-radius: 50%;
+    border-radius: 8px;
     z-index: 2;
     left: -10px;
+    background-color: var(--blue-500);
+    color: var(--gray-50);
 }
 
 .close-menu {
@@ -756,7 +758,8 @@ dialog .notice {
         /* transition: visibility 0s, opacity 0.5s linear; */
         width: 100%;
         z-index: 1;
-        background-color: red;
+        background-color: var(--bg-clr);
+        box-shadow: none;
     }
 
     .dialog__info{
