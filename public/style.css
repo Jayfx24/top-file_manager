@@ -767,6 +767,27 @@ dialog .notice {
     }
 }
 
+.content--error{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    
+}
+.error__title{
+    color: var(--red-500);
+}
+.error__code{
+    font-size: var(--font-size-6);
+}
+.error__message{
+    text-transform: capitalize;
+}
+
+.content--error a{
+    color: #396afc;
+    text-decoration: underline;
+}
+
 .hide {
     display: none;
 }

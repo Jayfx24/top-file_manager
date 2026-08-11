@@ -5,6 +5,7 @@ import {
   getFile,
   postFileDelete,
   download,
+  fileUpload
 } from "../controllers/file.controller.js";
 import upload from "../middleware/upload.middleware.js";
 import { updateSchema } from "../schemas/update.schema.js";
@@ -20,14 +21,7 @@ const u = upload.single("uploaded_file");
 fileRouter.post(
   "/:parentId/upload",
   isAuth,
-  u(req, res, function (err) {
-    if (err instanceof multer.MulterError) {
-      // A Multer error occurred when uploading.
-      throw new AppError(err.message, 500, err.field);
-    } else if (err) {
-      throw new AppError(err.message, 500);
-    }
-  }),
+  fileUpload,
   uploadFile
 );
 fileRouter.get("/:id/download", isAuth, download);

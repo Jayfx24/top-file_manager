@@ -49,12 +49,17 @@ app.use((req, res, next) => {
 app.use("/", router);
 app.use((err, req, res, next) => {
   console.error(err);
-  res.status(err.statusCode || 500).json({
-    error: {
-      code: err.code || "error",
-      message: err.message,
-    },
-  });
+  if (err.statusCode === 403) {
+    return res.render("Page not found. Head back");
+  }
+
+  return res.render("errorPage", { error: err });
+  // res.status(err.statusCode || 500).json({
+  //   error: {
+  //     code: err.code || "error",
+  //     message: err.message,
+  //   },
+  // });
 });
 
 app.listen(PORT, (err) => {

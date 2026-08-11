@@ -42,15 +42,11 @@ export async function contentGet(req, res) {
       id,
     },
   });
-  if (!currentFolder) return new NotfoundError("Folder not found");
+  if (!currentFolder) throw new NotfoundError("Folder not found");
+  if (currentFolder.authorId !== Number(req.user.id))
+    throw new UnauthorizedError("You are not allowed to view this resource");
   res.locals.currentPage = { base: req.baseUrl, path: id };
   res.locals.currentUser = req.user;
-
-  console.log(res.locals.currentPage);
-  console.log(req.path, req.baseUrl);
-
-  console.log("Breadcrumbs");
-  console.log(sideMenu.folders);
 
   return res.render("dashboard", {
     title: "Content",

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include("./partials/head.ejs") %>
+
+<body>
+  <%- include("./partials/header.ejs") %>
+
+  <div class="container">
+    <% if (locals.error.statusCode !== 404 ) {%>
+
+    <h1 class="error__title">Oops. Something went wrong</h1>
+    <%}%>
+      <div class="content--error">
+          <h2 class="error__code"><%=locals.error.statusCode%> error</h2>
+              <h2 class="error__message"><%=locals.error.message%></h2>
+              <a href="javascript:history.back()">Go Back</a>
+      </div>
+
+  </div>
+
+
+</body>
+
+</html>
