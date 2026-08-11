@@ -46,7 +46,7 @@
             <% if (file.mimetype.split("/")[0] === "image") {%>
                 <h2 class="file__preview">Preview</h2>
                 <div class="file__image">
-                  <img class="view__image" src="/uploads/<%=file.originalName%>" alt="<%=file.name%>">
+                  <img class="view__image" src="<%=file.url%>" alt="<%=file.name%>">
                 </div>
 
                 <%}%>

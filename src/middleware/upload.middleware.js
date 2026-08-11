@@ -1,13 +1,25 @@
 import multer from "multer";
 import path from "path";
+import fs from "node:fs";
+
+const folderName = "public/temps";
+const fullPath = path.join(process.cwd(), folderName);
 
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, path.join(process.cwd(), "public/uploads"));
+  destination: async (req, file, cb) => {
+    try {
+      if (!fs.existsSync(fullPath)) {
+        fs.mkdirSync(fullPath, { recursive: true });
+      }
+    } catch (err) {
+      console.error(err);
+    }
+
+    cb(null, fullPath);
   },
   filename: (req, file, cb) => {
-    const ext = file.originalname.match(/\.\w+$/i)?.[0];
-    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    // const ext = file.originalname.match(/\.\w+$/i)?.[0];
+    // const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
     cb(null, file.originalname);
   },
 });
