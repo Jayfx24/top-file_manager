@@ -5,6 +5,7 @@ import { formatBytes } from "../utils.js";
 import path from "path";
 import cloudUpload from "../middleware/cloudinary.js";
 import upload from "../middleware/upload.middleware.js";
+import multer from "multer";
 import fs from "fs";
 
 export async function uploadFile(req, res) {
@@ -103,14 +104,15 @@ export async function download(req, res, next) {
   }
 }
 
-export async function fileUpload(req, res) {
+export async function fileUpload(req, res,next) {
   const u = upload.single("uploaded_file");
-  u(req, res, function (err) {
+  u(req, res,next, function (err) {
     if (err instanceof multer.MulterError) {
       // A Multer error occurred when uploading.
       throw new AppError(err.message, 500, err.field);
     } else if (err) {
       throw new AppError(err.message, 500,"APP_ERROR");
     }
+    next()
   });
 }

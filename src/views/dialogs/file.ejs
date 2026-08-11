@@ -9,13 +9,16 @@
     </div>
     <form action="/files/<%=locals.parentId || '0'%>/upload" method="post" enctype="multipart/form-data">
       <div class="form-group">
-        <label for="uploaded_file">Enter file name:</label>
+        <label for="uploaded_file"></label>
         <input type="file" name="uploaded_file" id="uploaded_file" accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf">
         
       </div>
-       <p class="notice">
+      <div class="notice">
+        <p class="">
           Accepted file types are: <span class="">.xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf</span>
         </p>
+        <span>Max upload limit - <span>9mb</span></span>
+      </div>
       <button type="submit" class="form-btn">Upload</button>
     </form>
     <div class="dialog__actions">

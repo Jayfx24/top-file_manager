@@ -1,13 +1,12 @@
 @import url('./reset.css');
-
-
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Spectral:ital,wght@0,400;0,500;0,600;0,700;0,800;1,600;1,700;1,800&display=swap');
 
 
 :root {
     --max-width: 1250px;
 
 
-    
+
     /* CSS HSL */
     --gray-50: hsla(210, 17%, 98%, 1);
     --gray-100: hsla(210, 16%, 93%, 1);
@@ -79,19 +78,20 @@
     --letter-space-3: 0.0085em;
 
     /* clrs */
-    --color-primary : var(--blue-500);
+    --color-primary: var(--blue-500);
     --color-primary-hover: var(--gray-300);
-    --color-background : var(--gray-50);
-    --color-border : var(--gray-200);
-    --color-text : var(--gray-600);
-    --color-text-muted : var(--gray-200);
+    --color-background: var(--gray-50);
+    --color-border: var(--gray-200);
+    --color-text: var(--gray-600);
+    --color-text-muted: var(--gray-200);
     --color-danger: var(--red-500);
-    --color-success : var(--blue-600);
+    --color-success: var(--blue-600);
     /* --color-a: none; */
 }
 
 
 body {
+      font-family: "JetBrains Mono", monospace;
     min-height: 100dvh;
     background-color: var(--bg-clr);
     /* background-color: var(--blue-900); */
@@ -105,12 +105,14 @@ body {
 
 :is(h1, h2, h3) {
     font-weight: 600;
+    font-family: "Spectral", serif;
 }
 
 h1 {
     font-size: var(--font-size-3);
     line-height: var(--line-height-3);
     letter-spacing: var(--letter-space-3);
+
 }
 
 h2 {
@@ -277,7 +279,7 @@ table {
 
 .table {
     width: 100%;
-    
+
     /* border-spacing: 0; */
 }
 
@@ -308,20 +310,20 @@ td {
     /* background-color: var(--blue-700); */
 }
 
-td:focus-within{
+td:focus-within {
     border-bottom: 1px solid var(--blue-800);
-    
+
 
 }
 
-.tr__link:is(:hover,:focus-within,:focus-visible){
+.tr__link:is(:hover, :focus-within, :focus-visible) {
     color: var(--gray-600);
 
-    & .icon{
+    & .icon {
         color: currentColor;
     }
 
-    & a{
+    & a {
         text-decoration: none;
         outline: none;
         border: none;
@@ -436,9 +438,9 @@ input {
     border-radius: 8px;
     /* border: 1px solid var(--gray-100); */
     box-shadow:
-0px 0px 0px 1px rgba(0, 0, 0, 0.06),
-0px 1px 2px -1px rgba(0, 0, 0, 0.06),
-0px 2px 4px 0px rgba(0, 0, 0, 0.04);
+        0px 0px 0px 1px rgba(0, 0, 0, 0.06),
+        0px 1px 2px -1px rgba(0, 0, 0, 0.06),
+        0px 2px 4px 0px rgba(0, 0, 0, 0.04);
 
 }
 
@@ -471,10 +473,11 @@ input {
 
 }
 
-.anchor{
+.anchor {
     border-inline-start: 1px solid transparent;
     padding: 0;
 }
+
 .folder__item {
     /* display: grid;
     gap: 0.25rem; */
@@ -502,29 +505,29 @@ input {
 .icon {
 
     color: var(--gray-400);
-   
+
 }
 
 .icon svg {
     pointer-events: none;
 }
 
-.icon:is(:hover,:focus-visible,:focus-within){
+.icon:is(:hover, :focus-visible, :focus-within) {
     border: none;
     outline: none;
 }
 
-.icon--update:is(:hover,:focus-visible,:focus-within) {
+.icon--update:is(:hover, :focus-visible, :focus-within) {
     color: var(--gray-600);
     color: green;
 }
 
-.icon--delete:is(:hover,:focus-visible,:focus-within) {
+.icon--delete:is(:hover, :focus-visible, :focus-within) {
     color: var(--red-500);
 
 }
 
-.icon--share:is(:hover,:focus-visible,:focus-within) {
+.icon--share:is(:hover, :focus-visible, :focus-within) {
     color: var(--blue-700);
 
 }
@@ -620,13 +623,18 @@ dialog {
 
 .dialog__actions {
     position: absolute;
-    right: 0;
-    top: 0;
+    right: 0.5rem;
+    top: 1rem;
 }
 
+.dialog__actions:hover {
+    color: var(--red-500);
+}
 
 dialog .notice {
-    font-size: var(--font-size-1b);
+    /* font-size: var(--font-size-1b); */
+    color: var(--gray-500);
+    font-style: italic;
 }
 
 #uploaded_file {
@@ -636,10 +644,11 @@ dialog .notice {
 
 
 /* shared */
-.shared__content{
+.shared__content {
     padding: 1rem;
     overflow-x: auto;
 }
+
 .shared__texts {
     /* display: grid; */
     margin-bottom: 2rem;
@@ -709,9 +718,12 @@ dialog .notice {
 
 @media (max-width: 768px) {
 
-    h1,h2,h3{
+    h1,
+    h2,
+    h3 {
         line-height: 1.2;
     }
+
     .container {
         padding: 0rem;
     }
@@ -727,15 +739,18 @@ dialog .notice {
     .image-container {
         display: none;
     }
-    .open-menu,.close-menu{
+
+    .open-menu,
+    .close-menu {
         display: block;
     }
+
     .form-group {
         width: 100%;
     }
 
     #sideMenu {
-       padding: 2.5rem 1rem;
+        padding: 2.5rem 1rem;
         width: 0;
         position: fixed;
         height: 100%;
@@ -762,28 +777,31 @@ dialog .notice {
         box-shadow: none;
     }
 
-    .dialog__info{
-        gap:0.25rem
+    .dialog__info {
+        gap: 0.25rem
     }
 }
 
-.content--error{
+.content--error {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    
+
 }
-.error__title{
+
+.error__title {
     color: var(--red-500);
 }
-.error__code{
+
+.error__code {
     font-size: var(--font-size-6);
 }
-.error__message{
+
+.error__message {
     text-transform: capitalize;
 }
 
-.content--error a{
+.content--error a {
     color: #396afc;
     text-decoration: underline;
 }
