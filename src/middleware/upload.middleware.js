@@ -2,7 +2,7 @@ import multer from "multer";
 import path from "path";
 import fs from "node:fs";
 
-const folderName = "public/temps";
+const folderName = "public/upload";
 const fullPath = path.join(process.cwd(), folderName);
 
 const storage = multer.diskStorage({
