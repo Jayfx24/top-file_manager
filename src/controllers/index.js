@@ -17,10 +17,12 @@ export function registerGet(req, res) {
 }
 
 export async function registerPost(req, res, next) {
-  if (req.validateErrors) {
+  const errors = req.session.validateErrors;
+  delete req.session.validateErrors;
+  if (errors) {
     return res.render("forms/register", {
       title: "register",
-      errors: req.validateErrors,
+      errors,
     });
   }
 
@@ -41,7 +43,13 @@ export async function registerPost(req, res, next) {
       },
     },
   });
-  return res.redirect("/dashboard");
+
+  req.login(user, function (err) {
+    if (err) {
+      return next(err);
+    }
+    return res.redirect("/dashboard");
+  });
 }
 
 export function logout(req, res) {

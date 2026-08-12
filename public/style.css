@@ -363,7 +363,7 @@ td:focus-within {
 .form-container {
     width: 100%;
     margin-inline: auto;
-    max-width: 30rem;
+    max-width: 32rem;
     padding: 2rem;
     /* background-color: var(--blue-600); */
     gap: 3rem;
@@ -408,6 +408,7 @@ input {
     background-color: var(--gray-100);
     border-radius: var(--br-2);
     font: inherit;
+    width: 100%;
 }
 
 .form-actions {
@@ -782,6 +783,11 @@ dialog .notice {
     }
 }
 
+.error__list{
+    color: var(--red-500);
+    list-style:disc;
+    font-size: var(--font-size-1b);
+}
 .content--error {
     display: flex;
     flex-direction: column;

@@ -9,7 +9,7 @@ import {
 } from "../controllers/index.js";
 import { isAuth } from "../middleware/auth.middleware.js";
 import { router as userRouter } from "./user.router.js";
-import { validateRequest } from "../middleware/validateRequest.js";
+import { validateRequest, validateRequestAsync } from "../middleware/validateRequest.js";
 import { registerSchema } from "../schemas/authSchema.js";
 import { updateSchema } from "../schemas/update.schema.js";
 import folderRouter from "./folder.router.js";
@@ -34,7 +34,7 @@ router.get("/login", login);
 router.get("/logout", logout);
 router.get("/dashboard", isAuth, dashboard);
 router.get("/register", registerGet);
-router.post("/register", validateRequest(registerSchema), registerPost);
+router.post("/register", validateRequestAsync(registerSchema), registerPost);
 router.use("/update", isAuth, validateRequest(updateSchema), updateFile);
 
 // router.use("/files",folderRouter)

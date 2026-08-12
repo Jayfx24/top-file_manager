@@ -9,8 +9,8 @@ export const validateRequest = (schema, property = "body") => {
       return next();
     }
 
-    req.validateErrors = error.details.map((detail) => ({
-      path: detail.path.join("."),
+    req.session.validateErrors = error.details.map((detail) => ({
+      field: detail.path.join("."),
       message: detail.message,
     }));
 
@@ -31,14 +31,13 @@ export const validateRequestAsync = (schema, property = "body") => {
       return next();
     } catch (err) {
       err;
-      console.log('1. ',err.message);
-      req.session.validateErrors = [err?.message] ||
-        err.details.map((detail) => ({
-          field: detail.path.join("."),
-          message: detail.message,
-        })),
-      
-      console.log('2. ',req.session.validateErrors);
+      console.log("1. ", err.message);
+      ((req.session.validateErrors = err.details.map((detail) => ({
+        field: detail.path.join("."),
+        message: detail.message,
+      }))),
+        // redirect to err page and list error
+        console.log("2. ", req.session.validateErrors));
     }
 
     next();
