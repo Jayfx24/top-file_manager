@@ -600,6 +600,7 @@ dialog {
     padding: 0;
     border-color: transparent;
     border-radius: var(--br-2);
+    max-width: 30rem;
 
 }
 

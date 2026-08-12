@@ -78,7 +78,7 @@ export async function getList(req, res, next) {
     }
   });
 
-  return res.render("shared", { userSharedData, differenceInDays });
+  return res.render("shared", {title: "Shared folders", userSharedData, differenceInDays });
 }
 
 export async function getSharedDashboard(req, res, next) {
@@ -111,7 +111,7 @@ export async function getSharedFile(req, res) {
 
   if (req.isAuthenticated()) res.locals.currentUser = req.user.id;
 
-  res.render("file", { title: "FIle name", file, formatBytes, shareUrl });
+  res.render("file", { title: file.name, file, formatBytes, shareUrl });
 }
 
 export async function deactivateShared(req, res) {

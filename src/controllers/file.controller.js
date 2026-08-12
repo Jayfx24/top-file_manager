@@ -49,7 +49,7 @@ export async function getFile(req, res) {
   console.log(req.path, req.baseUrl);
   if (!file) return new NotfoundError("File not found");
 
-  res.render("file", { title: "FIle name", file, formatBytes });
+  res.render("file", { title: file.name, file, formatBytes });
 }
 
 export async function postFileDelete(req, res) {

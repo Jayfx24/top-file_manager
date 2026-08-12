@@ -49,7 +49,7 @@ export async function contentGet(req, res) {
   res.locals.currentUser = req.user;
 
   return res.render("dashboard", {
-    title: "Content",
+    title: currentFolder.name,
     parentId: id,
     ...sideMenu,
     formatBytes,

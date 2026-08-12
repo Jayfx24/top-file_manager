@@ -13,7 +13,7 @@ export function login(req, res) {
 }
 
 export function registerGet(req, res) {
-  return res.render("forms/register");
+  return res.render("forms/register", { title: "Sign-up" });
 }
 
 export async function registerPost(req, res, next) {
@@ -21,12 +21,11 @@ export async function registerPost(req, res, next) {
   delete req.session.validateErrors;
   if (errors) {
     return res.render("forms/register", {
-      title: "register",
+      title: "Sign-up errors",
       errors,
     });
   }
 
-  console.log(req.body);
   const pwd = await genPwd(req.body.pwd);
   const user = await prisma.user.create({
     data: {
@@ -70,7 +69,7 @@ export async function dashboard(req, res) {
   // res.locals.breadcrumbs = [{ label: "Home", path: "/" }];
 
   return res.render("dashboard", {
-    title: "Dashboard",
+    title: req.user.username,
     errors,
     ...sideMenu,
     parentId: 0,
