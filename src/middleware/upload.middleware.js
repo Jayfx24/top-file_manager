@@ -1,9 +1,13 @@
 import multer from "multer";
 import path from "path";
 import fs from "node:fs";
+import "dotenv/config";
 
 const folderName = "public/upload";
-const fullPath = path.join(process.cwd(), folderName);
+const fullPath =
+  process.env.NODE_ENV == "production"
+    ? "/tmp/upload"
+    : path.join(process.cwd(), folderName);
 
 const storage = multer.diskStorage({
   destination: async (req, file, cb) => {
@@ -18,8 +22,6 @@ const storage = multer.diskStorage({
     cb(null, fullPath);
   },
   filename: (req, file, cb) => {
-    // const ext = file.originalname.match(/\.\w+$/i)?.[0];
-    // const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
     cb(null, file.originalname);
   },
 });
