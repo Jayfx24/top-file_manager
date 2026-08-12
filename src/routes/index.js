@@ -9,7 +9,10 @@ import {
 } from "../controllers/index.js";
 import { isAuth } from "../middleware/auth.middleware.js";
 import { router as userRouter } from "./user.router.js";
-import { validateRequest, validateRequestAsync } from "../middleware/validateRequest.js";
+import {
+  validateRequest,
+  validateRequestAsync,
+} from "../middleware/validateRequest.js";
 import { registerSchema } from "../schemas/authSchema.js";
 import { updateSchema } from "../schemas/update.schema.js";
 import folderRouter from "./folder.router.js";
@@ -19,6 +22,7 @@ import passport from "passport";
 
 const router = Router();
 // if user is authenticated redirect to dashboard
+
 router.use("/files", fileRouter);
 router.use("/folders", folderRouter);
 router.use("/share", shareRouter);
@@ -36,6 +40,7 @@ router.get("/dashboard", isAuth, dashboard);
 router.get("/register", registerGet);
 router.post("/register", validateRequestAsync(registerSchema), registerPost);
 router.use("/update", isAuth, validateRequest(updateSchema), updateFile);
+router.get("/", (req, res) => res.redirect("/login"));
 
 // router.use("/files",folderRouter)
 
