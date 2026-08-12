@@ -30,7 +30,7 @@
                 <th class="th__item">size</th>
                 <th class="th__item">created</th>
                 <% if(locals.currentUser || !locals.shareUrl){%>
-                
+
                 <th class="th__item">actions</th>
                 <%}%>
               </tr>
@@ -69,8 +69,8 @@
                   }) %>
                 </td>
 
-                <% if(locals.currentUser.id === folder.authorId){%>
-               
+                <% if(currentUser?.id === folder.authorId){%>
+
                 <td class="tr__item ">
                   <div class="action__btns flex gap-2">
                     <% if(folder.parentId !== 0){%>
@@ -138,8 +138,8 @@
                   %>
                 </td>
 
-                <% if(locals.currentUser.id === file.authorId){%>
-                
+                <% if(currentUser?.id === file.authorId){%>
+
                 <td class="tr__item ">
                   <div class="action__btns row gap-2">
                     <form action="/files/<%=file.id%>/delete" method="post">
