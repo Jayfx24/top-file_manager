@@ -7,6 +7,7 @@ import cloudUpload from "../middleware/cloudinary.js";
 import upload from "../middleware/upload.middleware.js";
 import multer from "multer";
 import fs from "fs";
+import { Readable } from "node:stream";
 
 export async function uploadFile(req, res) {
   const parentId = Number(req.params?.parentId) || 0;
@@ -89,30 +90,34 @@ export async function download(req, res, next) {
         id,
       },
     });
-    if (!file) return new NotfoundError("File not found");
+    if (!file) throw new NotfoundError("file not found");
 
-    const filePath = path.join(file.url, file.originalName);
+    const response = await fetch(file.url);
+    if (!response.ok) {
+      return next(new NotfoundError("file not found"));
+    }
 
-    res.download(filePath, file.name, (err) => {
-      if (err) {
-        throw new NotfoundError("file not found");
-      }
-    });
+    res.setHeader(
+      "Content-Type",
+      response.headers.get("content-type") || "application/octet-stream"
+    );
+    res.setHeader("Content-Disposition", `attachment; filename="${file.name}"`);
+    return Readable.fromWeb(response.body).pipe(res);
   } catch (err) {
     next(err);
     console.log(err);
   }
 }
 
-export async function fileUpload(req, res,next) {
+export async function fileUpload(req, res, next) {
   const u = upload.single("uploaded_file");
-  u(req, res,next, function (err) {
+  u(req, res, next, function (err) {
     if (err instanceof multer.MulterError) {
       // A Multer error occurred when uploading.
       throw new AppError(err.message, 500, err.field);
     } else if (err) {
-      throw new AppError(err.message, 500,"APP_ERROR");
+      throw new AppError(err.message, 500, "APP_ERROR");
     }
-    next()
+    next();
   });
 }

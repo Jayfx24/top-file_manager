@@ -5,6 +5,7 @@ import { differenceInDays } from "date-fns";
 import { getSharedFolder } from "../service/service.js";
 import { formatBytes } from "../utils.js";
 import path from "path";
+import { Readable } from "node:stream";
 
 export async function postShareFolder(req, res, next) {
   if (req.session.validateErrors) {
@@ -78,7 +79,11 @@ export async function getList(req, res, next) {
     }
   });
 
-  return res.render("shared", {title: "Shared folders", userSharedData, differenceInDays });
+  return res.render("shared", {
+    title: "Shared folders",
+    userSharedData,
+    differenceInDays,
+  });
 }
 
 export async function getSharedDashboard(req, res, next) {
@@ -89,7 +94,7 @@ export async function getSharedDashboard(req, res, next) {
   if (req.isAuthenticated()) res.locals.currentUser = req.user.id;
 
   return res.render("dashboard", {
-    title: "Content",
+    title: "Shared",
     parentId: Number(folderId),
     ...data,
     shareUrl,
@@ -140,7 +145,7 @@ export async function download(req, res, next) {
       },
     });
 
-    if (!shareResource) throw new NotFoundError(" Share link not found");
+    if (!shareResource) throw new NotfoundError(" Share link not found");
     if (!shareResource.isActive)
       throw new UnauthorizedError(
         "You are not authorized to perform this action. Permission link has expired"
@@ -149,6 +154,7 @@ export async function download(req, res, next) {
     const file = await prisma.file.findUnique({
       where: {
         id: Number(id),
+        
       },
     });
 
@@ -159,13 +165,20 @@ export async function download(req, res, next) {
       );
     }
 
-    const filePath = path.join(file.url, file.originalName);
+    console.log(file.url)
 
-    res.download(filePath, file.name, (err) => {
-      if (err) {
-        next(new NotfoundError("file not found"));
-      }
-    });
+    const response = await fetch(file.url);
+    if (!response.ok) {
+      return next(new NotfoundError("file not found"));
+    }
+    
+
+    res.setHeader(
+      "Content-Type",
+      response.headers.get("content-type") || "application/octet-stream"
+    );
+    res.setHeader("Content-Disposition", `attachment; filename="${file.name}"`);
+    return Readable.fromWeb(response.body).pipe(res);
   } catch (err) {
     next(err);
     console.log(err);
