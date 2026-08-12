@@ -66,3 +66,5 @@ app.listen(PORT, (err) => {
   if (err) console.log(err);
   console.log("app is live");
 });
+
+export { app };
