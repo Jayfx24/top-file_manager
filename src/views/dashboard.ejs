@@ -74,7 +74,7 @@
                 <td class="tr__item ">
                   <div class="action__btns flex gap-2">
                     <% if(folder.parentId !== 0){%>
-                    <button class="dialog--update  strip icon icon--update" command="show-modal" commandfor="dialog--update" data-id="<%=folder.id%>" data-type="folder" data-name="<%=folder.name%>" data-parent="<%= folder.parentId %>">
+                    <button class="dialog-trigger  strip icon icon--update" data-dialog="dialog--update" data-id="<%=folder.id%>" data-type="folder" data-name="<%=folder.name%>" data-parent="<%= folder.parentId %>">
                       <i data-lucide="save-plus" class=""></i>
 
                     </button>
@@ -86,7 +86,7 @@
                     </form>
                     <% } %>
 
-                    <button class="dialog--share strip icon icon--share" command="show-modal" commandfor="dialog--share" data-id="<%=folder.id%>" data-type="folder" data-name="<%=folder.name%>" data-func="share" data-parent="<%= folder.parentId %>">
+                    <button class="dialog-trigger strip icon icon--share" data-dialog="dialog--share" data-id="<%=folder.id%>" data-type="folder" data-name="<%=folder.name%>" data-func="share" data-parent="<%= folder.parentId %>">
                       <i data-lucide="share-2" class=""></i>
 
                     </button>

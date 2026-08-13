@@ -1,5 +1,6 @@
 const folders = document.querySelector(".main-list");
 const tableDialogs = document.querySelector(".table");
+const sideMenu = document.querySelector(".side-menu");
 
 const collapse = (event) => {
   const target = event.target.closest("li");
@@ -16,11 +17,10 @@ const collapse = (event) => {
 };
 const populateDialog = (event) => {
   const target = event.target.closest("button");
-  // console.log(target.tagName);
 
   // console.log("here", target.dataset.id);
   if (!["folder", "file"].includes(target.dataset.type)) return;
-
+  openDialog();
   const share = document.querySelector("#shareId");
   const id = target.dataset.id;
 
@@ -40,16 +40,37 @@ const populateDialog = (event) => {
   document.querySelector("#fileType").value = target.dataset.type;
 };
 
-const openNav = () => {
+const openDialog = () => {
+  console.log("here");
+  const target = event.target.closest(".dialog-trigger");
 
+  if (target) {
+    const dialog = document.getElementById(target.dataset?.dialog);
+    if (!dialog.open) {
+      console.log(dialog);
+      dialog.showModal();
+      return;
+    }
+  }
+
+  const closeBtn = event.target.closest(".dialog-close");
+
+  const closeDialog = document.getElementById(closeBtn?.dataset?.dialogClose);
+  console.log(closeBtn, closeDialog, "data-dialog-close");
+
+  closeDialog?.close();
 
   // sideMenu.style.display= "block"
   // sideMenu.style.width = '100%';
-
 };
 
-const closeNav = () => {
-  document.getElementById("sideMenu").style.width = '100%';
+const closeDialog = () => {
+  const target = event.target.closest(".dialog-close");
+
+  const dialog = document.getElementById(target.dataset.dialog);
+  console.log(dialog);
+  dialog?.close();
 };
 folders.addEventListener("click", collapse);
 tableDialogs.addEventListener("click", populateDialog);
+document.addEventListener("click", openDialog);
