@@ -3,14 +3,14 @@ import { prisma } from "../lib/prisma.js";
 import ValidationError from "../errors/Validation.error.js";
 
 const folderExists = async (value, helpers) => {
-  console.log("The value is ", value);
+  console.log("The value is ", value.toLowerCase());
   const folder = await prisma.folder.findFirst({
     where: {
-      name: value, //.toLowerCase(),
+      name: value.toLowerCase(), //.toLowerCase(),
     },
   });
 
-  if (folder) throw new ValidationError("folder already exist");
+  if (folder) return helpers.message("folder already exist");
 };
 
 export const createFolderSchema = Joi.object({

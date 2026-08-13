@@ -14,6 +14,11 @@ export const validateRequest = (schema, property = "body") => {
       message: detail.message,
     }));
 
+    req.session.save((err) => {
+      if (err) return next(err);
+      const backURL = req.header("Referer") || "/";
+      res.redirect(backURL);
+    });
     next();
   };
 };

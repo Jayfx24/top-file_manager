@@ -64,6 +64,7 @@ export function logout(req, res) {
 
 export async function dashboard(req, res) {
   const errors = req.session.validateErrors;
+  console.log(errors)
   delete req.session.validateErrors;
 
   const sideMenu = await getSideMenuData(req.user.id);

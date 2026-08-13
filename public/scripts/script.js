@@ -41,9 +41,8 @@ const populateDialog = (event) => {
 };
 
 const openDialog = () => {
-  console.log("here");
   const target = event.target.closest(".dialog-trigger");
-
+  if (!target) return
   if (target) {
     const dialog = document.getElementById(target.dataset?.dialog);
     if (!dialog.open) {
