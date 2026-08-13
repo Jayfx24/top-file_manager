@@ -42,7 +42,8 @@ const populateDialog = (event) => {
 
 const openDialog = () => {
   const target = event.target.closest(".dialog-trigger");
-  if (!target) return
+  const closeBtn = event.target.closest(".dialog-close");
+  // if (!target || closeBtn) return;
   if (target) {
     const dialog = document.getElementById(target.dataset?.dialog);
     if (!dialog.open) {
@@ -51,8 +52,6 @@ const openDialog = () => {
       return;
     }
   }
-
-  const closeBtn = event.target.closest(".dialog-close");
 
   const closeDialog = document.getElementById(closeBtn?.dataset?.dialogClose);
   console.log(closeBtn, closeDialog, "data-dialog-close");
