@@ -8,8 +8,10 @@ import path from "node:path";
 
 export function login(req, res) {
   if (req.isAuthenticated()) return res.redirect(301, "/dashboard");
-  res.locals.errors = req.session.messages;
-  return res.render("forms/login");
+  const errors = req.session.messages || req.session.validateErrors;
+  delete req.session.validateErrors;
+
+  return res.render("forms/login",{errors});
 }
 
 export function registerGet(req, res) {

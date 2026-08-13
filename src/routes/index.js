@@ -13,7 +13,7 @@ import {
   validateRequest,
   validateRequestAsync,
 } from "../middleware/validateRequest.js";
-import { registerSchema } from "../schemas/authSchema.js";
+import { registerSchema, loginSchema } from "../schemas/authSchema.js";
 import { updateSchema } from "../schemas/update.schema.js";
 import folderRouter from "./folder.router.js";
 import fileRouter from "./file.router.js";
@@ -28,6 +28,7 @@ router.use("/folders", folderRouter);
 router.use("/share", shareRouter);
 router.post(
   "/login",
+  validateRequest(loginSchema),
   passport.authenticate("local", {
     failureRedirect: "/login",
     failureMessage: true,
